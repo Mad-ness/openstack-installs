@@ -1,0 +1,4 @@
+centos_x86_64
+vm-images
+*/*.swp
+*.swp

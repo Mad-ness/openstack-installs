@@ -1,0 +1,72 @@
+infra_servers:
+    - name: ansible-host
+      ramsize: 6144
+      ncpu: 4
+      hostname: ansible-host
+      disks:
+      - name: ansible-host.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.50
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+
+    - name: controller-1
+      hostname: controller-1
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: controller-1.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.51
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.1
+        netmask: 255.255.252.0
+
+
+    - name: controller-2
+      hostname: controller-2
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: controller-2.qcow2 
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.52
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.2
+        netmask: 255.255.252.0
+
+
+
+    - name: controller-3
+      hostname: controller-3
+      ramsizse: 6144
+      ncpu: 4
+      disks:
+        - name: controller-3.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.53
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.2
+        netmask: 255.255.252.0
+

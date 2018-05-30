@@ -1,0 +1,23 @@
+
+virt-install \
+--name {{ vm.name }} \
+--ram {{ vm.ramsize }} \
+{%- for disk in vm.disks %}
+--disk path=/infrastructure/vm-images/{{ disk.name }},size={{ disk.size }},device=disk,bus=virtio,cache=none,io=native \
+{%- endfor %}
+--vcpus {{ vm.ncpu }} \
+--os-type linux \
+--os-variant centos7.0 \
+{%- for net in vm.networks %}
+--network bridge={{ net.bind_to }},model=virtio \
+{%- endfor %}
+--graphics none \
+--console pty,target_type=serial \
+--location "/infrastructure/centos_x86_64/mirror.centos.org/centos-7/7/os/x86_64" \
+--location 'http://mirror.centos.org/centos-7/7/os/x86_64' \
+--initrd-inject=/infrastructure/centos7.ks \
+--extra-args 'console=ttyS0,115200n8 serial nameserver=8.8.8.8 ks=file:/centos7.ks \
+{% for net in vm.networks -%}
+ip={{ net.ipaddr }}::{% if net.gateway is defined %}{{ net.gateway }}{% endif %}:{{ net.netmask }}:{{ vm.hostname }}:{{ net.ifname }}:none{{ ' ' }}
+{%- endfor -%}'
+
