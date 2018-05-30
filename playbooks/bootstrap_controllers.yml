@@ -86,7 +86,7 @@
         {% endif %}
       dest: /etc/sysconfig/network-scripts/ifcfg-eth2.{{ item.vlanid }}
     with_items:
-    - { vlanid: 10, bridge: br-mgmt }
+    - { vlanid: 1, bridge: br-mgmt }
     - { vlanid: 20, bridge: br-storage }
     - { vlanid: 30, bridge: br-vxlan }
     - { vlanid: 0, bridge: br-vlan }
@@ -110,9 +110,9 @@
       owner: root
       mode: '0644'
     with_items:
-    - { brname: br-mgmt, iface: eth2.10, ipaddr: "{{ brmgmt_ipaddr }}", netmask: "{{ brmgmt_netmask }}" }
-    - { brname: br-storage, iface: eth2.20 } #, ipaddr: "{{ brstorage_ipaddr }}", netmask: "{{ brstorage_netmask }}" }
-    - { brname: br-vxlan, iface: eth2.30 }
-    - { brname: br-vlan, iface: eth2 }
+    - { brname: br-mgmt, iface: eth2.1, ipaddr: "{{ brmgmt_ipaddr }}", netmask: "{{ brmgmt_netmask }}" }
+    - { brname: br-tenants, iface: eth2.10 } #, ipaddr: "{{ brstorage_ipaddr }}", netmask: "{{ brstorage_netmask }}" }
+    - { brname: br-storage, iface: eth2.30 }
+    - { brname: br-dataceph, iface: eth2 }
 
 
