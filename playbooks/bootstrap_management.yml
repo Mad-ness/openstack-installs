@@ -1,4 +1,4 @@
-- hosts: node0
+- hosts: management
   become: true
   tasks:
   - name: Set known root password
@@ -39,8 +39,8 @@
       user: ansible
       key: '{{ item }}'
     with_items: 
-    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeuLVUUhrZ2RwvY9cTWR94LBlgNXFP6cULlVvu0m2HMZ02INJ0STgnSdUMdPCQhJtZlonH7l70umhOKSXtxxBqvJbvlGlH2377sLrgSnsvkqrW4y+d2iXdIWrmVA9qudTiBNsmO3VFButLGOj+EM3ofQ09FcByN2JYNKhujwQfZ3qn5NtdJXHTfu8lfgiPIwitpHwaU49NusW/36GPvNILTymIG3nh8hUv1dgIOyQ5pOBrY/z8h/7QsWKqSsDFb7YxkW9VQK1KBXvv8IEw16rHwf1S+BKHFc4q17xKi09RNQypjvvA/c8EvRe9xPgAeCCMuJkU17xo/iRrhwqkWkzb dmitrii@Dmitriis-MacBook-Pro.local'
-    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkmKQED+x8WmkK/BTv+lFgJyVqYwYOxS+zhad4zbj2gBdNbYfFFOJKULgPHjqhoYYN0DwDs41wjmp5wQt15qzk4bnGXcfABfsBvURG/4UAMG1PMj24vgdOxeEf0mEDG2feW2j3WahdHFbgevkrQAyhbbnkkCiBdqnU+ca5BKnfXnhG/wTzGrS6qrH0B/pMRBctL7XMW1MGbx8fd1yBTWvDGl373f71yzjI9JJZFidoa0l1VVSJlg8e6jpuasL4wWV6q13uCDyyAtbQSqVxBP5GLMuR33EpHh2sEYUlNXhB5sKX23LxqGMCjDrCl24eYJs3V/aippzmzmyYQScSOdZb root@localhost.localdomain'
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG1tThPX6zShv7AwbjnlHOPlcUhVcI0yTQa7OWYl6LzzTilACOf92/G/oTgdlAjH7dtU5KLOafASBlYxtHeaVMr43+nv5QAYBJW/cR/njuJpHP9aN/pNdpr2jW3EHtWnahMRYA2MSAOzmfqAkFKJv/0aZ+1ICYTwHD7XohjDAN2eSK4HzA8/OCm4Vi9zDnfUbNm2sutFjLYvu/VjKPu+I+JQ3aA7kNJYuVULkUKATVyznVZGQXMR43OPzNX2qsyvfmLbjMOb1nof45w8JEpEub9cnSoD/MCE9BRZr4v+PN7WPkF8tW/Eueg1MLu9o+806umGzPMFUAnPQcdhGcpDov'
+
 
 
 
@@ -72,26 +72,26 @@
 #      owner: root
 #      mode: '0644'
 
-
-  - name: Configuring Container management interface (br-mgmt)
-    copy:
-      content: |
-        BOOTPROTO=static
-        NM_CONTROLLED=no
-        TYPE=Bridge
-        DEVICE=br-mgmt
-        NAME=br-mgmt
-        ONBOOT=yes
-        IPADDR={{ brmgmt_ipaddr }}
-        NETMASK=255.255.252.0 
-        IPV6INIT=no
-      dest: /etc/sysconfig/network-scripts/ifcfg-br-mgmt
-      owner: root
-      mode: '0644'
-
-  handlers:
-  - name: Reload sshd service
-    service: name=sshd state=restarted 
+#
+#  - name: Configuring Container management interface (br-mgmt)
+#    copy:
+#      content: |
+#        BOOTPROTO=static
+#        NM_CONTROLLED=no
+#        TYPE=Bridge
+#        DEVICE=br-mgmt
+#        NAME=br-mgmt
+#        ONBOOT=yes
+#        IPADDR={{ brmgmt_ipaddr }}
+#        NETMASK=255.255.252.0 
+#        IPV6INIT=no
+#      dest: /etc/sysconfig/network-scripts/ifcfg-br-mgmt
+#      owner: root
+#      mode: '0644'
+#
+#  handlers:
+#  - name: Reload sshd service
+#    service: name=sshd state=restarted 
 
 
 
