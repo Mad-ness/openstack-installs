@@ -1,0 +1,53 @@
+- hosts: compute-nodes, controllers
+  become: true
+  tasks:
+
+  - include_vars: ../virt_infra/infra_vars.yml
+
+  - name: Getting a host specific variables
+    set_fact: netinfo='{{ item.networks }}'
+    with_items: "{{ infra_servers }}"
+    when: inventory_hostname == item.name
+
+
+  - debug: var=netinfo
+
+  - name: Creating bridges
+    copy:
+      content: |
+        BOOTPROTO=none
+        NM_CONTROLLED=no
+        TYPE=Bridge
+        DEVICE={{ item.bind_to }}
+        NAME={{ item.bind_to }}
+        ONBOOT=yes
+        {% if item.ipaddr is defined %}
+        IPADDR={{ item.ipaddr }}
+        NETMASK={{ item.netmask }}
+        {% endif %}
+        {% if item.gateway is defined %}
+        GATEWAY={{ item.gateway }}
+        DNS1=8.8.8.8
+        DNS2=8.8.4.4
+        {% endif %}
+        IPV6INIT=no
+      dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.bind_to }}
+      owner: root
+      mode: '0644'
+    with_items: '{{ netinfo }}'
+
+  - name: Redefining interfaces
+    copy:
+      content: |
+        DEVICE={{ item.ifname }}
+        TYPE=Ethernet
+        BOOTPROTO=none
+        PEERDNS=no
+        ONBOOT=yes
+        BRIDGE={{ item.bind_to }}
+        NM_CONTROLLED=no
+      dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.ifname }}
+      owner: root
+      mode: '0644'
+    with_items: '{{ netinfo }}'
+

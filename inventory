@@ -1,4 +1,4 @@
-[all]
+[all:vars]
 
 [management]
 ansible-host
@@ -12,4 +12,7 @@ controller-3
 compute-1
 compute-2
 compute-3
+
+[compute-nodes:vars]
+pvs_devices = [ '/dev/vdb', ]
 

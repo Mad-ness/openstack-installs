@@ -1,6 +1,11 @@
 - hosts: controllers
   become: true
   tasks:
+
+  - name: Loading vars
+    include_vars: ../virt_infra/infra_vars.yml
+
+
   - name: Set install the inventory hostname as hostname
     hostname: name='{{ inventory_hostname }}'
 
@@ -65,54 +70,57 @@
       pv_options: '--metadatasize 2048'
       pvs: "{{ pvs_devices }}"
       vg: cinder-volumes
+    when: "{{ pvs_devices is defined }}"
 
-  - name: Creating the VLAN interfaces
-    copy:
-      content: |
-        {% if item.vlanid == 0 %}
-        DEVICE=eth2
-        {% else %}
-        DEVICE=eth2.{{ item.vlanid }}
-        {% endif %}
-        VLAN_ID={{ item.vlanid }}
-        TYPE=Ethernet
-        BOOTPROTO=none
-        ONBOOT=yes
-        PEERDNS=no
-        VLAN=yes
-        NM_CONTROLLED=no
-        {% if item.bridge is defined %}
-        BRIDGE={{ item.bridge }}
-        {% endif %}
-      dest: /etc/sysconfig/network-scripts/ifcfg-eth2.{{ item.vlanid }}
-    with_items:
-    - { vlanid: 10, bridge: br-mgmt }
-    - { vlanid: 20, bridge: br-storage }
-    - { vlanid: 30, bridge: br-vxlan }
-    - { vlanid: 0, bridge: br-vlan }
+  - include_tasks: network_cfg.yml
 
-
-  - name: Creating bridges
-    copy:
-      content: |
-        BOOTPROTO=none
-        NM_CONTROLLED=no
-        TYPE=Bridge
-        DEVICE={{ item.brname }}
-        NAME={{ item.brname }}
-        ONBOOT=yes
-        {% if item.ipaddr is defined %}
-        IPADDR={{ item.ipaddr }}
-        NETMASK={{ item.netmask }}
-        {% endif %}
-        IPV6INIT=no
-      dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.brname }}
-      owner: root
-      mode: '0644'
-    with_items:
-    - { brname: br-mgmt, iface: eth2.10, ipaddr: "{{ brmgmt_ipaddr }}", netmask: "{{ brmgmt_netmask }}" }
-    - { brname: br-storage, iface: eth2.20 } #, ipaddr: "{{ brstorage_ipaddr }}", netmask: "{{ brstorage_netmask }}" }
-    - { brname: br-vxlan, iface: eth2.30 }
-    - { brname: br-vlan, iface: eth2 }
-
-
+#  - name: Creating the VLAN interfaces
+#    copy:
+#      content: |
+#        {% if item.vlanid == 0 %}
+#        DEVICE=eth2
+#        {% else %}
+#        DEVICE=eth2.{{ item.vlanid }}
+#        {% endif %}
+#        VLAN_ID={{ item.vlanid }}
+#        TYPE=Ethernet
+#        BOOTPROTO=none
+#        ONBOOT=yes
+#        PEERDNS=no
+#        VLAN=yes
+#        NM_CONTROLLED=no
+#        {% if item.bridge is defined %}
+#        BRIDGE={{ item.bridge }}
+#        {% endif %}
+#      dest: /etc/sysconfig/network-scripts/ifcfg-eth2.{{ item.vlanid }}
+#    with_items:
+#    - { vlanid: 10, bridge: br-mgmt }
+#    - { vlanid: 20, bridge: br-storage }
+#    - { vlanid: 30, bridge: br-vxlan }
+#    - { vlanid: 0, bridge: br-vlan }
+#
+#
+#  - name: Creating bridges
+#    copy:
+#      content: |
+#        BOOTPROTO=none
+#        NM_CONTROLLED=no
+#        TYPE=Bridge
+#        DEVICE={{ item.brname }}
+#        NAME={{ item.brname }}
+#        ONBOOT=yes
+#        {% if item.ipaddr is defined %}
+#        IPADDR={{ item.ipaddr }}
+#        NETMASK={{ item.netmask }}
+#        {% endif %}
+#        IPV6INIT=no
+#      dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.brname }}
+#      owner: root
+#      mode: '0644'
+#    with_items:
+#    - { brname: br-mgmt, iface: eth2.10, ipaddr: "{{ brmgmt_ipaddr }}", netmask: "{{ brmgmt_netmask }}" }
+#    - { brname: br-storage, iface: eth2.20 } #, ipaddr: "{{ brstorage_ipaddr }}", netmask: "{{ brstorage_netmask }}" }
+#    - { brname: br-vxlan, iface: eth2.30 }
+#    - { brname: br-vlan, iface: eth2 }
+#
+#
