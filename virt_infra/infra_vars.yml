@@ -27,10 +27,13 @@ infra_servers:
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
-        bind_to: br-storage
-        ipaddr: 10.2.0.1
+        bind_to: br-tenants
+        ipaddr: 10.1.0.51
         netmask: 255.255.252.0
-
+      - ifname: eth2
+        bind_to: br-storage
+        ipaddr: 10.2.0.51
+        netmask: 255.255.252.0
 
     - name: controller-2
       hostname: controller-2
@@ -46,15 +49,18 @@ infra_servers:
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
-        bind_to: br-storage
-        ipaddr: 10.2.0.2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.52
         netmask: 255.255.252.0
-
+      - ifname: eth2
+        bind_to: br-storage
+        ipaddr: 10.2.0.52
+        netmask: 255.255.252.0
 
 
     - name: controller-3
       hostname: controller-3
-      ramsizse: 6144
+      ramsize: 6144
       ncpu: 4
       disks:
         - name: controller-3.qcow2
@@ -66,7 +72,87 @@ infra_servers:
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
-        bind_to: br-storage
-        ipaddr: 10.2.0.2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.53
         netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-storage
+        ipaddr: 10.2.0.53
+        netmask: 255.255.252.0
+
+#
+# COMPUTE NODES
+#
+    - name: compute-1
+      hostname: compute-1
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: compute-1.qcow2
+          size: 10
+        - name: compute-1-vdb.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.54
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-tenants
+        ipaddr: 10.1.0.54
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-storage
+        ipaddr: 10.2.0.54
+        netmask: 255.255.252.0
+
+    - name: compute-2
+      hostname: compute-2
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: compute-2.qcow2
+          size: 10
+        - name: compute-2-vdb.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.55
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-tenants
+        ipaddr: 10.1.0.55
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-storage
+        ipaddr: 10.2.0.55
+        netmask: 255.255.252.0
+
+    - name: compute-3
+      hostname: compute-3
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: compute-3.qcow2
+          size: 10
+        - name: compute-3-vdb.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.55
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-tenants
+        ipaddr: 10.1.0.56
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-storage
+        ipaddr: 10.2.0.56
+        netmask: 255.255.252.0
+
 

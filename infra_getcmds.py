@@ -16,7 +16,6 @@ def render_one(vm):
 
 def render_template(req_name, all_servers):
 	for host in all_servers:
-		print(host['name'])
 		if host['name'] == req_name:
 			vm = host
 			return render_one(vm)
@@ -25,8 +24,12 @@ def render_template(req_name, all_servers):
 
 
 if __name__ == "__main__":
+        if len(sys.argv) < 2:
+		print("Need to specify a name defined in the virt_infra/infra_vars.yml file.")
+		exit(1)
+
+	host = sys.argv[1]	
 	infra_servers = yaml.load(open(vars_from_yaml, 'r'))
-	print(infra_servers['infra_servers'])
-	print(render_template('controller-1', infra_servers['infra_servers']))
+	print(render_template(host, infra_servers['infra_servers']))
 	pass
 
