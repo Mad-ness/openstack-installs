@@ -1,8 +1,9 @@
 - hosts: management
   become: true
   tasks:
-  - name: Set known root password
-    command: echo 'secret' | passwd root --stdin
+
+#  - name: Set known root password
+#    command: echo 'secret' | passwd root --stdin
  
   - name: Enable RootLogin in sshd_config
     lineinfile: 
