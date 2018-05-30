@@ -5,7 +5,7 @@ Useful things for deploying OpenStack clouds
 ## Utility infra_getcmds.py
 
 It uses the files *virt_infra/infra_vars.yml* and *virt_infra/infra_templ.j2* 
-to render the arguments for the **virt-install** CLI tool for running virtual machines.
+to render the arguments of the **virt-install** CLI tool for deploying virtual machines.
 
 File *virt_infra/infra_vars.yml* includes a description of VMs parameters and the file *virt_infra/infra_templ.j2* 
 has a template of the command.
