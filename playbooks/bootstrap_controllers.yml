@@ -1,4 +1,4 @@
-- hosts: controllers
+- hosts: controllers,compute-nodes,nfs-storage
   become: true
   tasks:
 

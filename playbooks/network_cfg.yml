@@ -1,6 +1,12 @@
-- hosts: compute-nodes, controllers
+- hosts: compute-nodes, controllers, nfs-storage
   become: true
   tasks:
+  - name: Install sshpubkey
+    authorized_key:
+      user: root
+      key: '{{ item }}'
+    with_items:
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsqWdB77Rq494ZZ7E5QAoJRJvB9MM72uMrU5wxpSAVDlJtZGXpF6GaHVgfBRo6+IgDUXQrgLaAQd38AEu+lq+3wOFana7L4icqcAHkxWUFJeC4yJCBaFPxC08DKW9NySv93+pMaS3ozcyzGEeIDLL3UA2o75JgFRZw4eOQ87XDFkEzuvL3/LXt+loMY/jYWI5nYGsg2kYwHgyjknI4w+WcEQwTnwTMYi8DH8m8JBqpHwtovS+bH7dy835OP+IHzfpdikJ0VOTF2EMRystOOwtJr+JEQDPiJK93Ot7Z3Ww0/dSFfCPeQljySCqzp18LjepVXUI3ccst6RcmR41+Zap1 root@localhost.localdomain'
 
   - name: Installing bridge-utils
     yum: name=bridge-utils state=present

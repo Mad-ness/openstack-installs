@@ -1,4 +1,4 @@
-- hosts: management
+- hosts: management,nfs-server
   become: true
   tasks:
 

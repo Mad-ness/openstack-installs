@@ -16,3 +16,6 @@ compute-3
 [compute-nodes:vars]
 pvs_devices = [ '/dev/vdb', ]
 
+[nfs-storage]
+nfs-server
+
