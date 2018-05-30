@@ -1,0 +1,6 @@
+---
+
+- include_tasks: bootstrap_controllers.yml
+- include_tasks: bootstrap_management.yml
+- include_tasks: add_domain.yml
+

@@ -1,0 +1,9 @@
+- hosts: node0, node1, node2, node3  
+  become: true
+  tasks:
+  - name: Adding the openstack.example.com domain
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^172\.29\.236\.9\s*openstack\.example\.com.*$'
+      line: '172.29.236.9 openstack.example.com'
+

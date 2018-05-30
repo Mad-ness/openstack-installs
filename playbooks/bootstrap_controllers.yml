@@ -1,0 +1,119 @@
+- hosts: controllers
+  become: true
+  tasks:
+  - name: Set install the inventory hostname as hostname
+    hostname: name='{{ inventory_hostname }}'
+
+  - name: Installing required packages
+    yum: name='{{ item }}' state=present
+    with_items:
+    - bridge-utils
+    - iputils
+    - lsof
+    - lvm2
+    - ntp
+    - ntpdate
+    - openssh-server
+    - sudo
+    - tcpdump
+    - python
+
+  - name: Ensure the modules bonding and 8021q are loaded when booting
+    lineinfile:
+      path: /etc/modules-load.d/openstack-ansible.conf
+      line: '{{ item }}'
+      regexp: '^\s*{{ item }}.*$'
+      create: yes
+    with_items:
+    - bonding
+    - 8021q
+
+  - name: Start ntpd service
+    service: name=ntpd state=started enabled=on
+
+  - name: Stop the postfix service (since we do not need it)
+    service: name=postfix state=stopped enabled=off 
+
+  - name: Create the Ansible user
+    user:
+        name: ansible
+        comment: Management account
+        shell: /bin/bash
+        generate_ssh_key: yes
+        createhome: yes
+        password: '$1$zEzNaiUh$Yck0C5lBn.8Z3w9dw6MIx1'
+
+  - name: Enable passwordless access for the ansible user
+    copy:
+        content: |
+          %ansible      ALL=(ALL)       NOPASSWD: ALL
+        owner: root
+        group: root
+        mode: '0400'
+        dest: /etc/sudoers.d/ansible
+
+  - name: Put the ansible user required ssh (public) keys
+    authorized_key:
+      user: root
+      key: '{{ item }}'
+    with_items:
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeuLVUUhrZ2RwvY9cTWR94LBlgNXFP6cULlVvu0m2HMZ02INJ0STgnSdUMdPCQhJtZlonH7l70umhOKSXtxxBqvJbvlGlH2377sLrgSnsvkqrW4y+d2iXdIWrmVA9qudTiBNsmO3VFButLGOj+EM3ofQ09FcByN2JYNKhujwQfZ3qn5NtdJXHTfu8lfgiPIwitpHwaU49NusW/36GPvNILTymIG3nh8hUv1dgIOyQ5pOBrY/z8h/7QsWKqSsDFb7YxkW9VQK1KBXvv8IEw16rHwf1S+BKHFc4q17xKi09RNQypjvvA/c8EvRe9xPgAeCCMuJkU17xo/iRrhwqkWkzb dmitrii@Dmitriis-MacBook-Pro.local'
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDl73zeptrTXj5UzoHSDRF5B14kOgGTCYQ23Kl6qKO1I8kBtqkrV2zbwe5JZzTKLdKRe5zcEEyuozjIQC8hGy6SDjnnqQ45qGeuuhdvwUZ3NmfHDkPsIMZt8F4llJJm722zywvQ8Kxt2ixWW8J/XcFFSRzXKX24+vitKw6fFFal7O2DQg93CQOssa+ZsnDg9ORRZvccOmKyZy5WblG/0oJmGsqfgNiUikW81YjyYja7zJHDd0aBzTTPsymN7CNbUdTJg7tKD2Dg0pAsfuFWYMv/Rzpc4fg8sVRz6KkkSgg6mxWweTSOnD6xo/lIeXdBvERtoKXxbG49ehuOo+USiFmj root@node0'
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkmKQED+x8WmkK/BTv+lFgJyVqYwYOxS+zhad4zbj2gBdNbYfFFOJKULgPHjqhoYYN0DwDs41wjmp5wQt15qzk4bnGXcfABfsBvURG/4UAMG1PMj24vgdOxeEf0mEDG2feW2j3WahdHFbgevkrQAyhbbnkkCiBdqnU+ca5BKnfXnhG/wTzGrS6qrH0B/pMRBctL7XMW1MGbx8fd1yBTWvDGl373f71yzjI9JJZFidoa0l1VVSJlg8e6jpuasL4wWV6q13uCDyyAtbQSqVxBP5GLMuR33EpHh2sEYUlNXhB5sKX23LxqGMCjDrCl24eYJs3V/aippzmzmyYQScSOdZb root@localhost.localdomain'
+
+  - name: Configure the cinder-volumes volume group
+    lvg:
+      pv_options: '--metadatasize 2048'
+      pvs: "{{ pvs_devices }}"
+      vg: cinder-volumes
+
+  - name: Creating the VLAN interfaces
+    copy:
+      content: |
+        {% if item.vlanid == 0 %}
+        DEVICE=eth2
+        {% else %}
+        DEVICE=eth2.{{ item.vlanid }}
+        {% endif %}
+        VLAN_ID={{ item.vlanid }}
+        TYPE=Ethernet
+        BOOTPROTO=none
+        ONBOOT=yes
+        PEERDNS=no
+        VLAN=yes
+        NM_CONTROLLED=no
+        {% if item.bridge is defined %}
+        BRIDGE={{ item.bridge }}
+        {% endif %}
+      dest: /etc/sysconfig/network-scripts/ifcfg-eth2.{{ item.vlanid }}
+    with_items:
+    - { vlanid: 10, bridge: br-mgmt }
+    - { vlanid: 20, bridge: br-storage }
+    - { vlanid: 30, bridge: br-vxlan }
+    - { vlanid: 0, bridge: br-vlan }
+
+
+  - name: Creating bridges
+    copy:
+      content: |
+        BOOTPROTO=none
+        NM_CONTROLLED=no
+        TYPE=Bridge
+        DEVICE={{ item.brname }}
+        NAME={{ item.brname }}
+        ONBOOT=yes
+        {% if item.ipaddr is defined %}
+        IPADDR={{ item.ipaddr }}
+        NETMASK={{ item.netmask }}
+        {% endif %}
+        IPV6INIT=no
+      dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.brname }}
+      owner: root
+      mode: '0644'
+    with_items:
+    - { brname: br-mgmt, iface: eth2.10, ipaddr: "{{ brmgmt_ipaddr }}", netmask: "{{ brmgmt_netmask }}" }
+    - { brname: br-storage, iface: eth2.20 } #, ipaddr: "{{ brstorage_ipaddr }}", netmask: "{{ brstorage_netmask }}" }
+    - { brname: br-vxlan, iface: eth2.30 }
+    - { brname: br-vlan, iface: eth2 }
+
+

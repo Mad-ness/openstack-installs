@@ -1,0 +1,72 @@
+[all:vars]
+brmgmt_netmask = 255.255.252.0
+brstorage_netmask = 255.255.255.0
+pvs_devices = ['/dev/sdb', ]
+
+[controllers:children]
+node0_host
+node1_host
+node2_host
+node3_host
+#node4_host
+#node5_host
+
+[node0_host]
+node0 ansible_port=2220 ansible_host=127.0.0.1 ansible_user=vagrant become=true ansible_ssh_private_key_file=/Users/dmitrii/git/ctl-openstack/.vagrant/machines/node0/virtualbox/private_key
+[node0_host:vars]
+brmgmt_ipaddr = 172.29.236.10
+brstorage_ipaddr = 172.29.236.10
+brmgmt_netmask = 255.255.252.0
+brstorage_netmask = 255.255.252.0
+
+
+[node1_host]
+node1 ansible_port=2221 ansible_host=127.0.0.1 ansible_user=vagrant become=true ansible_ssh_private_key_file=/Users/dmitrii/git/ctl-openstack/.vagrant/machines/node1/virtualbox/private_key
+[node1_host:vars]
+brmgmt_ipaddr = 172.29.236.11
+brstorage_ipaddr = 172.29.236.11
+brmgmt_netmask = 255.255.252.0
+brstorage_netmask = 255.255.252.0
+
+
+
+[node2_host]
+node2 ansible_port=2222 ansible_host=127.0.0.1 ansible_user=vagrant become=true ansible_ssh_private_key_file=/Users/dmitrii/git/ctl-openstack/.vagrant/machines/node2/virtualbox/private_key
+[node2_host:vars]
+brmgmt_ipaddr = 172.29.236.12
+brstorage_ipaddr = 172.29.236.12
+brmgmt_netmask = 255.255.252.0
+brstorage_netmask = 255.255.252.0
+pvs_devices = ['/dev/sda', ]
+
+
+
+[node3_host]
+node3 ansible_port=2223 ansible_host=127.0.0.1 ansible_user=vagrant become=true ansible_ssh_private_key_file=/Users/dmitrii/git/ctl-openstack/.vagrant/machines/node3/virtualbox/private_key
+[node3_host:vars]
+brmgmt_ipaddr = 172.29.236.13
+brstorage_ipaddr = 172.29.236.13
+brmgmt_netmask = 255.255.252.0
+brstorage_netmask = 255.255.252.0
+pvs_devices = ['/dev/sdb', ]
+
+
+
+#[node4_host]
+#node4 ansible_port=2224 ansible_host=127.0.0.1 ansible_user=vagrant become=true ansible_ssh_private_key_file=/Users/dmitrii/git/ctl-openstack/.vagrant/machines/node4/virtualbox/private_key
+#[node4_host:vars]
+#brmgmt_ipaddr = 172.29.236.14
+#brstorage_ipaddr = 172.29.236.14
+#brmgmt_netmask = 255.255.252.0
+#brstorage_netmask = 255.255.252.0
+#pvs_devices = ['/dev/sda', ]
+#
+#
+#[node5_host]
+#node5 ansible_port=2225 ansible_host=127.0.0.1 ansible_user=vagrant become=true ansible_ssh_private_key_file=/Users/dmitrii/git/ctl-openstack/.vagrant/machines/node5/virtualbox/private_key
+#[node5_host:vars]
+#brmgmt_ipaddr = 172.29.236.15
+#brstorage_ipaddr = 172.29.236.15
+#brmgmt_netmask = 255.255.252.0
+#brstorage_netmask = 255.255.252.0
+#
