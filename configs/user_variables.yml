@@ -183,5 +183,4 @@ repo_build_upper_constraints_overrides:
 # there is version 2.5.0 by default which fails
 # this version aligns with Centos 7.5
 # from here https://bugs.launchpad.net/networking-midonet/+bug/1730314
-  - "libvirt-python==3.9.0"
   - "libvirt_python==3.9.0"
