@@ -178,3 +178,9 @@ repo_build_git_cache: true
 galera_cluster_name: openstack_galera_cluster
 galera_root_password: secrete
 apply_security_hardening: false
+
+repo_build_upper_constraints_overrides:
+# there is version 2.5.0 by default which fails
+# this version aligns with Centos 7.5
+# from here https://bugs.launchpad.net/networking-midonet/+bug/1730314
+  - "libvirt-python==3.9.0"
