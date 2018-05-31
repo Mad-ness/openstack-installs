@@ -108,3 +108,12 @@ Virtual machines should have following IP addresses:
 | compute-2    | 192.168.0.16 | 10.0.0.16 | 10.1.0.16 | 10.2.0.16 |
 | compute-3    | 192.168.0.17 | 10.0.0.17 | 10.1.0.17 | 10.2.0.17 |
 | nfs-storage  | 192.168.0.18 | 10.0.0.18 | x         | 10.2.0.18 |
+
+
+## Deploying virtual machines
+
+Use this [instruction](https://github.com/Mad-ness/openstack-installs/blob/master/infra_getcmds.py.md) to automate the installation of required virtual nodes.
+
+
+
+ 
