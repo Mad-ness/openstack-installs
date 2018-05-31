@@ -16,3 +16,6 @@ Make sure you have the Yaml and Jinja2 python modules installed.
 ```shell
 python infra_getcmds.py compute-1 | sudo sh
 ```
+### Modifications
+- replace the public ssh key in the *centos7.ks* kickstart file.
+- update the *virt_infra/infra_vars.yml* file to satisfy required environment.
