@@ -1,7 +1,7 @@
 infra_servers:
     - name: ansible-host
       ramsize: 6144
-      ncpu: 4
+      ncpu: 8
       hostname: ansible-host
       disks:
       - name: ansible-host.qcow2
@@ -49,7 +49,7 @@ infra_servers:
       ramsize: 6144
       ncpu: 4
       disks:
-        - name: controller-2.qcow2 
+        - name: controller-2.qcow2
           size: 20
       networks:
       - ifname: eth0
@@ -209,4 +209,3 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.57
         netmask: 255.255.252.0
-
