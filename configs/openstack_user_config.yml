@@ -79,8 +79,8 @@ shared-infra_hosts: &infrastructure_hosts
     ip: 172.28.1.53
 
 repo-infra_hosts:
-  log1:
-      172.28.1.50
+  util1:
+    ip: 172.28.1.50
 
 haproxy_hosts: *infrastructure_hosts
 
@@ -89,8 +89,8 @@ log_hosts:
     ip: 172.28.1.50
 
 identity_hosts: *infrastructure_hosts
-
 storage-infra_hosts: *infrastructure_hosts
+
 image_hosts:
   infra1:
     ip: 172.28.1.51
@@ -130,7 +130,7 @@ compute-infra_hosts: &compute_hosts
     ip: 172.28.1.55
   compute3:
     ip: 172.28.1.56
-    
+
 orchestration_hosts: *infrastructure_hosts
 dashboard_hosts: *infrastructure_hosts
 network_hosts: *infrastructure_hosts
@@ -139,6 +139,63 @@ metering-alarm_hosts: *infrastructure_hosts
 metrics_hosts: *infrastructure_hosts
 compute_hosts: *compute_hosts
 metering-compute_hosts: *compute_hosts
+
+storage_hosts2:
+    ceph1osd1:
+        ip: 172.28.1.70
+        container_vars:
+            cinder_storage_availability_zone: "Ceph-1"
+            cinder_default_availability_zone: "Ceph-1"
+            cinder_backends:
+                limit_container_types: "cinder_volume"
+                rbd_backend:
+                    volume_backend_name: "volumes_hdd"
+                    volume_driver: cinder.volume.drivers.rbd.RBDDriver
+                    rbd_pool: os_volumes
+                    rbd_ceph_conf: /etc/ceph/ceph.conf
+                    rbd_flatten_volume_from_snapshot: false
+                    rbd_max_clone_depth: 5
+                    rbd_store_chunk_size: 4
+                    rados_connect_timeout: 30
+                    rbd_user: "{{ cinder_ceph_client }}"
+                    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+    ceph1osd2:
+        ip: 172.28.1.71
+        container_vars:
+            cinder_storage_availability_zone: "Ceph-2"
+            cinder_default_availability_zone: "Ceph-1"
+            cinder_backends:
+                limit_container_types: "cinder_volume"
+                rbd_backend:
+                    volume_backend_name: "volumes_hdd"
+                    volume_driver: cinder.volume.drivers.rbd.RBDDriver
+                    rbd_pool: os_volumes
+                    rbd_ceph_conf: /etc/ceph/ceph.conf
+                    rbd_flatten_volume_from_snapshot: false
+                    rbd_max_clone_depth: 5
+                    rbd_store_chunk_size: 4
+                    rados_connect_timeout: 30
+                    rbd_user: "{{ cinder_ceph_client }}"
+                    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+    ceph1osd3:
+        ip: 172.28.1.72
+        container_vars:
+            cinder_storage_availability_zone: "Ceph-3"
+            cinder_default_availability_zone: "Ceph-1"
+            cinder_backends:
+                limit_container_types: "cinder_volume"
+                rbd_backend:
+                    volume_backend_name: "volumes_hdd"
+                    volume_driver: cinder.volume.drivers.rbd.RBDDriver
+                    rbd_pool: os_volumes
+                    rbd_ceph_conf: /etc/ceph/ceph.conf
+                    rbd_flatten_volume_from_snapshot: false
+                    rbd_max_clone_depth: 5
+                    rbd_store_chunk_size: 4
+                    rados_connect_timeout: 30
+                    rbd_user: "{{ cinder_ceph_client }}"
+                    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+
 storage_hosts:
   infra1:
     ip: 172.28.1.51
