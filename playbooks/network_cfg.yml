@@ -1,4 +1,4 @@
-- hosts: compute-nodes, controllers, nfs-storage
+- hosts: all
   become: true
   tasks:
   - name: Install sshpubkey

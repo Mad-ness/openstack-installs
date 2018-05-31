@@ -1,0 +1,160 @@
+---
+apply_security_hardening: false
+
+cidr_networks:
+   container: 172.28.0.0/22
+   tunnel: 10.1.0.0/22
+   storage: 10.2.0.0/22
+
+used_ips:
+   - "172.28.1.0,172.28.1.48"
+   - "172.28.0.0,172.28.0.255"
+   - "172.28.2.0,172.28.2.255"
+   - "172.28.3.0,172.28.3.255"
+
+external_lb_vip_address: openstack.example.com
+
+global_overrides:
+    internal_lb_vip_address: 172.28.1.49
+    external_lb_vip_address: 172.28.1.49
+    management_bridge: br-mgmt
+    tunnel_bridge: br-tenants
+    provider_networks:
+    - network:
+        container_bridge: "br-mgmt"
+        container_type: "veth"
+        container_interface: "eth1"
+        ip_from_q: "container"
+        type: "raw"
+        group_binds:
+          - all_containers
+          - hosts
+        is_container_address: true
+        is_ssh_address: true
+    - network:
+        container_bridge: "br-tenants"
+        container_type: "veth"
+        container_interface: "eth12"
+        host_bind_override: "eth12"
+        type: "vlan"
+        net_name: "tenants"
+        range: "50:200"
+        group_binds:
+          - neutron_linuxbridge_agent
+    - network:
+        container_bridge: "br-storage"
+        container_type: "veth"
+        container_interface: "eth2"
+        ip_from_q: "storage"
+        type: "raw"
+        group_binds:
+          - glance_api
+          - cinder_api
+          - cinder_volume
+          - nova_compute
+
+shared-infra_hosts: &infrastructure_hosts
+  infra1:
+    ip: 172.28.1.51
+  infra2:
+    ip: 172.28.1.52
+  infra3:
+    ip: 172.28.1.53
+
+repo-infra_hosts: *infrastructure_hosts
+
+haproxy_hosts: *infrastructure_hosts
+
+log_hosts:
+  log1:
+    ip: 172.28.1.50
+
+identity_hosts: *infrastructure_hosts
+
+storage-infra_hosts: *infrastructure_hosts
+image_hosts:
+  infra1:
+    ip: 172.28.1.51
+    container_vars:
+      limit_container_types: glance
+      glance_nfs_client:
+        - server: "172.28.1.57"
+          remote_path: "/images"
+          local_path: "/var/lib/glance/images"
+          type: "nfs"
+          options: "_netdev,auto"
+  infra2:
+    ip: 172.28.1.52
+    container_vars:
+      limit_container_types: glance
+      glance_nfs_client:
+        - server: "172.28.1.57"
+          remote_path: "/images"
+          local_path: "/var/lib/glance/images"
+          type: "nfs"
+          options: "_netdev,auto"
+  infra3:
+    ip: 172.28.1.53
+    container_vars:
+      limit_container_types: glance
+      glance_nfs_client:
+        - server: "172.28.1.57"
+          remote_path: "/images"
+          local_path: "/var/lib/glance/images"
+          type: "nfs"
+          options: "_netdev,auto"
+compute-infra_hosts: &compute_hosts
+  compute1:
+    ip: 172.28.1.54
+  compute2:
+    ip: 172.28.1.55
+  compute3:
+    ip: 172.28.1.56
+orchestration_hosts: *infrastructure_hosts
+dashboard_hosts: *infrastructure_hosts
+network_hosts: *infrastructure_hosts
+metering-infra_hosts: *infrastructure_hosts
+metering-alarm_hosts: *infrastructure_hosts
+metrics_hosts: *infrastructure_hosts
+compute_hosts: *compute_hosts
+metering-compute_hosts: *compute_hosts
+storage_hosts:
+  infra1:
+    ip: 172.28.1.51
+    container_vars:
+      cinder_backends:
+        limit_container_types: cinder_volume
+        nfs_volume:
+          volume_backend_name: NFS_VOLUME1
+          volume_driver: cinder.volume.drivers.nfs.NfsDriver
+          nfs_mount_options: "rsize=65535,wsize=65535,timeo=1200,actimeo=120"
+          nfs_shares_config: /etc/cinder/nfs_shares
+          shares:
+            - ip: "172.28.1.57"
+              share: "/vol/cinder"
+  infra2:
+    ip: 172.28.1.52
+    container_vars:
+      cinder_backends:
+        limit_container_types: cinder_volume
+        nfs_volume:
+          volume_backend_name: NFS_VOLUME1
+          volume_driver: cinder.volume.drivers.nfs.NfsDriver
+          nfs_mount_options: "rsize=65535,wsize=65535,timeo=1200,actimeo=120"
+          nfs_shares_config: /etc/cinder/nfs_shares
+          shares:
+            - ip: "172.28.1.57"
+              share: "/vol/cinder"
+  infra3:
+    ip: 172.28.1.53
+    container_vars:
+      cinder_backends:
+        limit_container_types: cinder_volume
+        nfs_volume:
+          volume_backend_name: NFS_VOLUME1
+          volume_driver: cinder.volume.drivers.nfs.NfsDriver
+          nfs_mount_options: "rsize=65535,wsize=65535,timeo=1200,actimeo=120"
+          nfs_shares_config: /etc/cinder/nfs_shares
+          shares:
+            - ip: "172.28.1.57"
+              share: "/vol/cinder"
