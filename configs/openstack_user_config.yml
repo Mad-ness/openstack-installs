@@ -2,7 +2,8 @@
 apply_security_hardening: false
 
 cidr_networks:
-   container: 172.28.0.0/22
+   management: 172.28.0.0/22
+   container: 10.4.0.0/22
    tunnel: 10.1.0.0/22
    storage: 10.2.0.0/22
 
@@ -11,19 +12,35 @@ used_ips:
    - "172.28.0.0,172.28.0.255"
    - "172.28.2.0,172.28.2.255"
    - "172.28.3.0,172.28.3.255"
+   - "10.1.0.0,10.0.0.100"
+   - "10.2.0.0,10.0.0.100"
+   - "10.3.0.0,10.0.0.100"
+   - "10.4.0.0,10.0.0.100"
+
 
 external_lb_vip_address: openstack.example.com
 
 global_overrides:
-    internal_lb_vip_address: 172.28.1.49
+    internal_lb_vip_address: 10.4.0.49
     external_lb_vip_address: 172.28.1.49
-    management_bridge: br-mgmt
+    management_bridge: "br-container"
     tunnel_bridge: br-tenants
     provider_networks:
+    # Management network for hosts
     - network:
         container_bridge: "br-mgmt"
         container_type: "veth"
         container_interface: "eth1"
+        type: "raw"
+        group_binds:
+          - hosts
+        is_ssh_address: true
+        ip_from_q: "management"
+    # Management network for containers
+    - network:
+        container_bridge: "br-container"
+        container_type: "veth"
+        container_interface: "eth2"
         ip_from_q: "container"
         type: "raw"
         group_binds:
@@ -34,8 +51,8 @@ global_overrides:
     - network:
         container_bridge: "br-tenants"
         container_type: "veth"
-        container_interface: "eth12"
-        host_bind_override: "eth12"
+        container_interface: "eth3"
+        host_bind_override: "eth3"
         type: "vlan"
         net_name: "tenants"
         range: "50:200"
@@ -44,7 +61,7 @@ global_overrides:
     - network:
         container_bridge: "br-storage"
         container_type: "veth"
-        container_interface: "eth2"
+        container_interface: "eth4"
         ip_from_q: "storage"
         type: "raw"
         group_binds:
@@ -61,7 +78,9 @@ shared-infra_hosts: &infrastructure_hosts
   infra3:
     ip: 172.28.1.53
 
-repo-infra_hosts: *infrastructure_hosts
+repo-infra_hosts:
+  log1:
+      172.28.1.50
 
 haproxy_hosts: *infrastructure_hosts
 
@@ -103,6 +122,7 @@ image_hosts:
           local_path: "/var/lib/glance/images"
           type: "nfs"
           options: "_netdev,auto"
+
 compute-infra_hosts: &compute_hosts
   compute1:
     ip: 172.28.1.54
@@ -110,6 +130,7 @@ compute-infra_hosts: &compute_hosts
     ip: 172.28.1.55
   compute3:
     ip: 172.28.1.56
+    
 orchestration_hosts: *infrastructure_hosts
 dashboard_hosts: *infrastructure_hosts
 network_hosts: *infrastructure_hosts
