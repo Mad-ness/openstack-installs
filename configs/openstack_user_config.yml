@@ -79,7 +79,7 @@ shared-infra_hosts: &infrastructure_hosts
     ip: 172.28.1.53
 
 repo-infra_hosts:
-  util1:
+  log1:
     ip: 172.28.1.50
 
 haproxy_hosts: *infrastructure_hosts
