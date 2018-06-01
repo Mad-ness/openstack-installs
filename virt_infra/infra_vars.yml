@@ -20,8 +20,8 @@ infra_servers:
 
     - name: controller-1
       hostname: controller-1
-      ramsize: 6144
-      ncpu: 4
+      ramsize: 16384
+      ncpu: 8
       disks:
         - name: controller-1.qcow2
           size: 20
@@ -46,8 +46,8 @@ infra_servers:
 
     - name: controller-2
       hostname: controller-2
-      ramsize: 6144
-      ncpu: 4
+      ramsize: 16384
+      ncpu: 8
       disks:
         - name: controller-2.qcow2
           size: 20
@@ -73,8 +73,8 @@ infra_servers:
 
     - name: controller-3
       hostname: controller-3
-      ramsize: 6144
-      ncpu: 4
+      ramsize: 16384
+      ncpu: 8
       disks:
         - name: controller-3.qcow2
           size: 20
