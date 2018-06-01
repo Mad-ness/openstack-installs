@@ -308,7 +308,7 @@ infra_servers:
         ipaddr: 10.2.0.70
         netmask: 255.255.252.0
       - ifname: eth2
-        bind_to: br-cephdata
+        bind_to: br-dataceph
         ipaddr: 10.4.0.70
         netmask: 255.255.252.0
 
@@ -336,7 +336,7 @@ infra_servers:
         ipaddr: 10.2.0.71
         netmask: 255.255.252.0
       - ifname: eth2
-        bind_to: br-cephdata
+        bind_to: br-dataceph
         ipaddr: 10.4.0.71
         netmask: 255.255.252.0
 
@@ -364,6 +364,6 @@ infra_servers:
         ipaddr: 10.2.0.72
         netmask: 255.255.252.0
       - ifname: eth2
-        bind_to: br-cephdata
+        bind_to: br-dataceph
         ipaddr: 10.4.0.72
         netmask: 255.255.252.0
