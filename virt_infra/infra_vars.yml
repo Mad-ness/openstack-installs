@@ -251,7 +251,7 @@ infra_servers:
     - name: ceph-mon2
       ramsize: 2048
       ncpu: 2
-      hostname: ansible-mon2
+      hostname: ceph-mon2
       disks:
       - name: ceph-mon2.qcow2
         size: 10
@@ -266,12 +266,12 @@ infra_servers:
         ipaddr: 10.2.0.60
         netmask: 255.255.252.0
 
-    - name: ansible-mon3
+    - name: ceph-mon3
       ramsize: 2048
       ncpu: 2
-      hostname: ansible-mon3
+      hostname: ceph-mon3
       disks:
-      - name: ansible-mon3.qcow2
+      - name: ceph-mon3.qcow2
         size: 10
       networks:
       - ifname: eth0
