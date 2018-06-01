@@ -248,12 +248,12 @@ infra_servers:
         ipaddr: 10.2.0.59
         netmask: 255.255.252.0
 
-    - name: ansible-mon2
+    - name: ceph-mon2
       ramsize: 2048
       ncpu: 2
       hostname: ansible-mon2
       disks:
-      - name: ansible-mon2.qcow2
+      - name: ceph-mon2.qcow2
         size: 10
       networks:
       - ifname: eth0
