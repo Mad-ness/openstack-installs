@@ -209,3 +209,77 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.57
         netmask: 255.255.252.0
+
+
+#
+# CEPH Clusters
+#
+
+    - name: ceph-ansible
+      ramsize: 2048
+      ncpu: 4
+      hostname: ceph-ansible
+      disks:
+      - name: ceph-ansible.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.58
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+
+
+    - name: ansible-mon1
+      ramsize: 2048
+      ncpu: 4
+      hostname: ansible-mon1
+      disks:
+      - name: ansible-mon1.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.59
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth0
+        bind_to: br-storage
+        ipaddr: 10.2.0.59
+        netmask: 255.255.252.0
+
+    - name: ansible-mon2
+      ramsize: 2048
+      ncpu: 4
+      hostname: ansible-mon2
+      disks:
+      - name: ansible-mon2.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.60
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth0
+        bind_to: br-storage
+        ipaddr: 10.2.0.60
+        netmask: 255.255.252.0
+
+    - name: ansible-mon3
+      ramsize: 2048
+      ncpu: 4
+      hostname: ansible-mon3
+      disks:
+      - name: ansible-mon3.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.61
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth0
+        bind_to: br-storage
+        ipaddr: 10.2.0.61
+        netmask: 255.255.252.0
