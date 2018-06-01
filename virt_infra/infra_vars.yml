@@ -243,7 +243,7 @@ infra_servers:
         ipaddr: 172.28.1.59
         netmask: 255.255.252.0
         gateway: 172.28.0.1
-      - ifname: eth0
+      - ifname: eth1
         bind_to: br-storage
         ipaddr: 10.2.0.59
         netmask: 255.255.252.0
@@ -261,7 +261,7 @@ infra_servers:
         ipaddr: 172.28.1.60
         netmask: 255.255.252.0
         gateway: 172.28.0.1
-      - ifname: eth0
+      - ifname: eth1
         bind_to: br-storage
         ipaddr: 10.2.0.60
         netmask: 255.255.252.0
@@ -279,7 +279,7 @@ infra_servers:
         ipaddr: 172.28.1.61
         netmask: 255.255.252.0
         gateway: 172.28.0.1
-      - ifname: eth0
+      - ifname: eth1
         bind_to: br-storage
         ipaddr: 10.2.0.61
         netmask: 255.255.252.0
