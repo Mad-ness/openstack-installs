@@ -232,7 +232,7 @@ infra_servers:
 
     - name: ceph-mon1
       ramsize: 2048
-      ncpu: 4
+      ncpu: 2
       hostname: ceph-mon1
       disks:
       - name: ceph-mon1.qcow2
@@ -250,7 +250,7 @@ infra_servers:
 
     - name: ansible-mon2
       ramsize: 2048
-      ncpu: 4
+      ncpu: 2
       hostname: ansible-mon2
       disks:
       - name: ansible-mon2.qcow2
@@ -268,7 +268,7 @@ infra_servers:
 
     - name: ansible-mon3
       ramsize: 2048
-      ncpu: 4
+      ncpu: 2
       hostname: ansible-mon3
       disks:
       - name: ansible-mon3.qcow2
