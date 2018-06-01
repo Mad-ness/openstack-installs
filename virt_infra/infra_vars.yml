@@ -283,3 +283,87 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.61
         netmask: 255.255.252.0
+
+    - name: ceph-osd1
+      ramsize: 3072
+      ncpu: 2
+      hostname: ceph-osd1
+      disks:
+      - name: ceph-osd1-1.qcow2
+        size: 10
+      - name: ceph-osd1-2.qcow2
+        size: 10
+      - name: ceph-osd1-3.qcow2
+        size: 10
+      - name: ceph-osd1-4.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.70
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.70
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-cephdata
+        ipaddr: 10.4.0.70
+        netmask: 255.255.252.0
+
+    - name: ceph-osd2
+      ramsize: 3072
+      ncpu: 2
+      hostname: ceph-osd2
+      disks:
+      - name: ceph-osd2-1.qcow2
+        size: 10
+      - name: ceph-osd2-2.qcow2
+        size: 10
+      - name: ceph-osd2-3.qcow2
+        size: 10
+      - name: ceph-osd2-4.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.71
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.71
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-cephdata
+        ipaddr: 10.4.0.71
+        netmask: 255.255.252.0
+
+    - name: ceph-osd3
+      ramsize: 3072
+      ncpu: 2
+      hostname: ceph-osd3
+      disks:
+      - name: ceph-osd3-1.qcow2
+        size: 10
+      - name: ceph-osd3-2.qcow2
+        size: 10
+      - name: ceph-osd3-3.qcow2
+        size: 10
+      - name: ceph-osd3-4.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.72
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.72
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-cephdata
+        ipaddr: 10.4.0.72
+        netmask: 255.255.252.0
