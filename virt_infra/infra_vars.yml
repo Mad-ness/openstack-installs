@@ -230,12 +230,12 @@ infra_servers:
         gateway: 172.28.0.1
 
 
-    - name: ansible-mon1
+    - name: ceph-mon1
       ramsize: 2048
       ncpu: 4
-      hostname: ansible-mon1
+      hostname: ceph-mon1
       disks:
-      - name: ansible-mon1.qcow2
+      - name: ceph-mon1.qcow2
         size: 10
       networks:
       - ifname: eth0
