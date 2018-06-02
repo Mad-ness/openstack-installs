@@ -1,10 +1,197 @@
 infra_servers:
-    - name: 1-ansible-host
+    - name: ansible-host
       ramsize: 6144
       ncpu: 8
-      hostname: 1-ansible-host
+      hostname: ansible-host
       disks:
-      - name: 1-ansible-host.qcow2
+      - name: ansible-host.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.50
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.50
+        netmask: 255.255.252.0
+
+
+    - name: controller-1
+      hostname: controller-1
+      ramsize: 16384
+      ncpu: 8
+      disks:
+        - name: controller-1.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.51
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.51
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.51
+        netmask: 255.255.252.0
+      - ifname: eth3
+        bind_to: br-storage
+        ipaddr: 10.2.0.51
+        netmask: 255.255.252.0
+
+    - name: controller-2
+      hostname: controller-2
+      ramsize: 16384
+      ncpu: 8
+      disks:
+        - name: controller-2.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.52
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.52
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.52
+        netmask: 255.255.252.0
+      - ifname: eth3
+        bind_to: br-storage
+        ipaddr: 10.2.0.52
+        netmask: 255.255.252.0
+
+
+    - name: controller-3
+      hostname: controller-3
+      ramsize: 16384
+      ncpu: 8
+      disks:
+        - name: controller-3.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.53
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.53
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.53
+        netmask: 255.255.252.0
+      - ifname: eth3
+        bind_to: br-storage
+        ipaddr: 10.2.0.53
+        netmask: 255.255.252.0
+
+#
+# COMPUTE NODES
+#
+    - name: compute-1
+      hostname: compute-1
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: compute-1.qcow2
+          size: 10
+        - name: compute-1-vdb.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.54
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.54
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.54
+        netmask: 255.255.252.0
+      - ifname: eth3
+        bind_to: br-storage
+        ipaddr: 10.2.0.54
+        netmask: 255.255.252.0
+
+    - name: compute-2
+      hostname: compute-2
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: compute-2.qcow2
+          size: 10
+        - name: compute-2-vdb.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.55
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.55
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.55
+        netmask: 255.255.252.0
+      - ifname: eth3
+        bind_to: br-storage
+        ipaddr: 10.2.0.55
+        netmask: 255.255.252.0
+
+    - name: compute-3
+      hostname: compute-3
+      ramsize: 6144
+      ncpu: 4
+      disks:
+        - name: compute-3.qcow2
+          size: 10
+        - name: compute-3-vdb.qcow2
+          size: 20
+      networks:
+      - ifname: eth0
+        bind_to: br-mgmt
+        ipaddr: 172.28.1.56
+        netmask: 255.255.252.0
+        gateway: 172.28.0.1
+      - ifname: eth1
+        bind_to: br-container
+        ipaddr: 10.4.0.56
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-tenants
+        ipaddr: 10.1.0.56
+        netmask: 255.255.252.0
+      - ifname: eth3
+        bind_to: br-storage
+        ipaddr: 10.2.0.56
+        netmask: 255.255.252.0
+# 
+# Cloud #2
+#
+    - name: 1-openstack-ansible
+      ramsize: 6144
+      ncpu: 8
+      hostname: 1-openstack-ansible
+      disks:
+      - name: 1-openstack-ansible.qcow2
         size: 10
       networks:
       - ifname: eth0
@@ -98,7 +285,7 @@ infra_servers:
         netmask: 255.255.252.0
 
 #
-# COMPUTE NODES
+# COMPUTE NODES ( Cloud-2 )
 #
     - name: 1-compute-1
       hostname: 1-compute-1
@@ -135,7 +322,7 @@ infra_servers:
       disks:
         - name: 1-compute-2.qcow2
           size: 10
-        - name: compute-2-vdb.qcow2
+        - name: 1-compute-2-vdb.qcow2
           size: 20
       networks:
       - ifname: eth0
@@ -161,9 +348,9 @@ infra_servers:
       ramsize: 6144
       ncpu: 4
       disks:
-        - name: compute-3.qcow2
+        - name: 1-compute-3.qcow2
           size: 10
-        - name: compute-3-vdb.qcow2
+        - name: 1-compute-3-vdb.qcow2
           size: 20
       networks:
       - ifname: eth0
