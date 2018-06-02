@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: "{{ hosts }}"
   become: true
   tasks:
   - name: Install sshpubkey
@@ -6,7 +6,10 @@
       user: root
       key: '{{ item }}'
     with_items:
+# host's key
     - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsqWdB77Rq494ZZ7E5QAoJRJvB9MM72uMrU5wxpSAVDlJtZGXpF6GaHVgfBRo6+IgDUXQrgLaAQd38AEu+lq+3wOFana7L4icqcAHkxWUFJeC4yJCBaFPxC08DKW9NySv93+pMaS3ozcyzGEeIDLL3UA2o75JgFRZw4eOQ87XDFkEzuvL3/LXt+loMY/jYWI5nYGsg2kYwHgyjknI4w+WcEQwTnwTMYi8DH8m8JBqpHwtovS+bH7dy835OP+IHzfpdikJ0VOTF2EMRystOOwtJr+JEQDPiJK93Ot7Z3Ww0/dSFfCPeQljySCqzp18LjepVXUI3ccst6RcmR41+Zap1 root@localhost.localdomain'
+# management host's key
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+xnWdZm3HoNQzpPoqWrqi+wEk96YUlqyiU3658lxMy+VxVj04yknTLN3T6f0sdjqxZBB4WlkjMuCrH9ATJYyu0O+UePooeg3qOFrxl7FlS/te4P8bBmrXgBzBFf3u1yyw9p05Cy/WtIItcBhRXgcC368VhnvXvbO/C1j5vJY77dWeby3G0GYAku/NlA4Rs0FcnTDxVXdGU7eC7+qkJE7d9HeaTbfRGuqmCqD3EXz2guFQSKnw/dOLgg777w/trYbJPSNv23T10C9YVlXyx8v+KRprRUBTaUrdqZURI4Ougu0G4+9dyPM9sNc7qDTAz6GaVZjVfCG91qD+WFO8qZPN root@ceph-ansible'
 
   - name: Installing bridge-utils
     yum: name=bridge-utils state=present

@@ -1,4 +1,4 @@
-- hosts: management,nfs-server
+- hosts: "{{ hosts }}"
   become: true
   tasks:
 

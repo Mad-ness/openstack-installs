@@ -1,10 +1,10 @@
 infra_servers:
-    - name: ansible-host
+    - name: 1-ansible-host
       ramsize: 6144
       ncpu: 8
-      hostname: ansible-host
+      hostname: 1-ansible-host
       disks:
-      - name: ansible-host.qcow2
+      - name: 1-ansible-host.qcow2
         size: 10
       networks:
       - ifname: eth0
@@ -18,12 +18,12 @@ infra_servers:
         netmask: 255.255.252.0
 
 
-    - name: controller-1
-      hostname: controller-1
+    - name: 1-controller-1
+      hostname: 1-controller-1
       ramsize: 16384
       ncpu: 8
       disks:
-        - name: controller-1.qcow2
+        - name: 1-controller-1.qcow2
           size: 20
       networks:
       - ifname: eth0
@@ -44,12 +44,12 @@ infra_servers:
         ipaddr: 10.2.0.51
         netmask: 255.255.252.0
 
-    - name: controller-2
-      hostname: controller-2
+    - name: 1-controller-2
+      hostname: 1-controller-2
       ramsize: 16384
       ncpu: 8
       disks:
-        - name: controller-2.qcow2
+        - name: 1-controller-2.qcow2
           size: 20
       networks:
       - ifname: eth0
@@ -71,12 +71,12 @@ infra_servers:
         netmask: 255.255.252.0
 
 
-    - name: controller-3
-      hostname: controller-3
+    - name: 1-controller-3
+      hostname: 1-controller-3
       ramsize: 16384
       ncpu: 8
       disks:
-        - name: controller-3.qcow2
+        - name: 1-controller-3.qcow2
           size: 20
       networks:
       - ifname: eth0
@@ -100,14 +100,14 @@ infra_servers:
 #
 # COMPUTE NODES
 #
-    - name: compute-1
-      hostname: compute-1
+    - name: 1-compute-1
+      hostname: 1-compute-1
       ramsize: 6144
       ncpu: 4
       disks:
-        - name: compute-1.qcow2
+        - name: 1-compute-1.qcow2
           size: 10
-        - name: compute-1-vdb.qcow2
+        - name: 1-compute-1-vdb.qcow2
           size: 20
       networks:
       - ifname: eth0
@@ -128,12 +128,12 @@ infra_servers:
         ipaddr: 10.2.0.54
         netmask: 255.255.252.0
 
-    - name: compute-2
-      hostname: compute-2
+    - name: 1-compute-2
+      hostname: 1-compute-2
       ramsize: 6144
       ncpu: 4
       disks:
-        - name: compute-2.qcow2
+        - name: 1-compute-2.qcow2
           size: 10
         - name: compute-2-vdb.qcow2
           size: 20
@@ -156,8 +156,8 @@ infra_servers:
         ipaddr: 10.2.0.55
         netmask: 255.255.252.0
 
-    - name: compute-3
-      hostname: compute-3
+    - name: 1-compute-3
+      hostname: 1-compute-3
       ramsize: 6144
       ncpu: 4
       disks:
