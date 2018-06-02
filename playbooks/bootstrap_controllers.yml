@@ -1,4 +1,4 @@
-- hosts: controllers,compute-nodes,nfs-storage
+- hosts: "{{ hosts }}"
   become: true
   tasks:
 

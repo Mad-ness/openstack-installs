@@ -1,6 +1,9 @@
 - hosts: "{{ hosts }}"
   become: true
   tasks:
+  - name: Set hostname as the inventory hostname
+    hostname: name='{{ inventory_hostname }}'
+
   - name: Install sshpubkey
     authorized_key:
       user: root
@@ -10,6 +13,7 @@
     - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsqWdB77Rq494ZZ7E5QAoJRJvB9MM72uMrU5wxpSAVDlJtZGXpF6GaHVgfBRo6+IgDUXQrgLaAQd38AEu+lq+3wOFana7L4icqcAHkxWUFJeC4yJCBaFPxC08DKW9NySv93+pMaS3ozcyzGEeIDLL3UA2o75JgFRZw4eOQ87XDFkEzuvL3/LXt+loMY/jYWI5nYGsg2kYwHgyjknI4w+WcEQwTnwTMYi8DH8m8JBqpHwtovS+bH7dy835OP+IHzfpdikJ0VOTF2EMRystOOwtJr+JEQDPiJK93Ot7Z3Ww0/dSFfCPeQljySCqzp18LjepVXUI3ccst6RcmR41+Zap1 root@localhost.localdomain'
 # management host's key
     - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+xnWdZm3HoNQzpPoqWrqi+wEk96YUlqyiU3658lxMy+VxVj04yknTLN3T6f0sdjqxZBB4WlkjMuCrH9ATJYyu0O+UePooeg3qOFrxl7FlS/te4P8bBmrXgBzBFf3u1yyw9p05Cy/WtIItcBhRXgcC368VhnvXvbO/C1j5vJY77dWeby3G0GYAku/NlA4Rs0FcnTDxVXdGU7eC7+qkJE7d9HeaTbfRGuqmCqD3EXz2guFQSKnw/dOLgg777w/trYbJPSNv23T10C9YVlXyx8v+KRprRUBTaUrdqZURI4Ougu0G4+9dyPM9sNc7qDTAz6GaVZjVfCG91qD+WFO8qZPN root@ceph-ansible'
+    - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDqS64pFXFEekix/d2VVRGKBqPskugdSCtZX37Vzx9beNsNOxWuJIlooNMqoNS14DdhRJ/VrDIkWlUIGOnsBEWeOp3KFcDIvzZUZHZNCHj0YiGEVk3C4HgXrPO0WoAyv1qC9pfG5VB68m9yD440t3jXLtOwfJq1le6HFLF3q6eE1QxLIhZCsM7+WFub2eHR1jpFxWYBP6QYEVxYDcYPfMtVSVwa7D4chvCO+6vi+rEcvfNHs/fTnP3hacKz0gDm7AQgrVRTgHdvUY5PGKd3ujNLPvGdNnA9Cgarkr7KqKNE4F7c/WzsfyN6u00SHm3KQ0G3WAMRi7J06SA6OeC4Cuo1 root@1-openstack-ansible'
 
   - name: Installing bridge-utils
     yum: name=bridge-utils state=present
