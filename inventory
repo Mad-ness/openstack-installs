@@ -19,6 +19,10 @@ pvs_devices = [ '/dev/vdb', ]
 [nfs-storage]
 nfs-server
 
+[ceph-1:children]
+ceph-mons
+ceph-osds
+
 [ceph-ansible]
 ceph-ansible
 
