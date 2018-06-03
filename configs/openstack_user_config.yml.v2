@@ -5,8 +5,14 @@ cidr_networks:
    container: 172.28.0.0/22
    tunnel: 10.1.0.0/22
    storage: 10.2.0.0/22
+   dataceph: 10.4.0.0/22
 
 used_ips:
+   - "10.0.0.0,10.0.0.100"
+   - "10.1.0.0,10.1.0.100"
+   - "10.1.0.0,10.2.0.100"
+   - "10.3.0.0,10.3.0.100"
+   - "10.4.0.0,10.4.0.100"
    - "172.28.1.0,172.28.1.48"
    - "172.28.0.0,172.28.0.255"
    - "172.28.2.0,172.28.2.255"
@@ -118,6 +124,23 @@ metering-alarm_hosts: *infrastructure_hosts
 metrics_hosts: *infrastructure_hosts
 compute_hosts: *compute_hosts
 metering-compute_hosts: *compute_hosts
+
+ceph-mon_hosts:
+  mon1:
+    ip: 172.28.1.59
+  mon2:
+    ip: 172.28.1.60
+  mon3: 
+    ip: 172.28.1.61
+
+ceph-osd_hosts:
+  osd1:
+    ip: 172.28.1.70
+  osd2:
+    ip: 172.28.1.71
+  osd3: 
+    ip: 172.28.1.72
+
 storage_hosts:
   infra1:
     ip: 172.28.1.51
