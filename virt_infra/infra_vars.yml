@@ -215,20 +215,20 @@ infra_servers:
       networks:
       - ifname: eth0
         bind_to: br-mgmt
-        ipaddr: 172.28.1.51
+        ipaddr: 172.28.2.22
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
         bind_to: br-container
-        ipaddr: 10.4.0.51
+        ipaddr: 10.4.2.22
         netmask: 255.255.252.0
       - ifname: eth2
         bind_to: br-tenants
-        ipaddr: 10.1.0.51
+        ipaddr: 10.1.2.22
         netmask: 255.255.252.0
       - ifname: eth3
         bind_to: br-storage
-        ipaddr: 10.2.0.51
+        ipaddr: 10.2.2.22
         netmask: 255.255.252.0
 
     - name: 1-controller-2
@@ -241,20 +241,20 @@ infra_servers:
       networks:
       - ifname: eth0
         bind_to: br-mgmt
-        ipaddr: 172.28.1.52
+        ipaddr: 172.28.2.23
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
         bind_to: br-container
-        ipaddr: 10.4.0.52
+        ipaddr: 10.4.2.23
         netmask: 255.255.252.0
       - ifname: eth2
         bind_to: br-tenants
-        ipaddr: 10.1.0.52
+        ipaddr: 10.1.2.23
         netmask: 255.255.252.0
       - ifname: eth3
         bind_to: br-storage
-        ipaddr: 10.2.0.52
+        ipaddr: 10.2.2.23
         netmask: 255.255.252.0
 
 
@@ -268,20 +268,20 @@ infra_servers:
       networks:
       - ifname: eth0
         bind_to: br-mgmt
-        ipaddr: 172.28.1.53
+        ipaddr: 172.28.2.24
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
         bind_to: br-container
-        ipaddr: 10.4.0.53
+        ipaddr: 10.4.2.24
         netmask: 255.255.252.0
       - ifname: eth2
         bind_to: br-tenants
-        ipaddr: 10.1.0.53
+        ipaddr: 10.1.2.24
         netmask: 255.255.252.0
       - ifname: eth3
         bind_to: br-storage
-        ipaddr: 10.2.0.53
+        ipaddr: 10.2.2.24
         netmask: 255.255.252.0
 
 #
@@ -299,20 +299,20 @@ infra_servers:
       networks:
       - ifname: eth0
         bind_to: br-mgmt
-        ipaddr: 172.28.1.54
+        ipaddr: 172.28.2.25
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
         bind_to: br-container
-        ipaddr: 10.4.0.54
+        ipaddr: 10.4.2.25
         netmask: 255.255.252.0
       - ifname: eth2
         bind_to: br-tenants
-        ipaddr: 10.1.0.54
+        ipaddr: 10.1.2.25
         netmask: 255.255.252.0
       - ifname: eth3
         bind_to: br-storage
-        ipaddr: 10.2.0.54
+        ipaddr: 10.2.2.25
         netmask: 255.255.252.0
 
     - name: 1-compute-2
@@ -327,20 +327,20 @@ infra_servers:
       networks:
       - ifname: eth0
         bind_to: br-mgmt
-        ipaddr: 172.28.1.55
+        ipaddr: 172.28.2.26
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
         bind_to: br-container
-        ipaddr: 10.4.0.55
+        ipaddr: 10.4.2.26
         netmask: 255.255.252.0
       - ifname: eth2
         bind_to: br-tenants
-        ipaddr: 10.1.0.55
+        ipaddr: 10.1.2.26
         netmask: 255.255.252.0
       - ifname: eth3
         bind_to: br-storage
-        ipaddr: 10.2.0.55
+        ipaddr: 10.2.2.26
         netmask: 255.255.252.0
 
     - name: 1-compute-3
@@ -355,21 +355,25 @@ infra_servers:
       networks:
       - ifname: eth0
         bind_to: br-mgmt
-        ipaddr: 172.28.1.56
+        ipaddr: 172.28.2.27
         netmask: 255.255.252.0
         gateway: 172.28.0.1
       - ifname: eth1
         bind_to: br-container
-        ipaddr: 10.4.0.56
+        ipaddr: 10.4.2.27
         netmask: 255.255.252.0
       - ifname: eth2
         bind_to: br-tenants
-        ipaddr: 10.1.0.56
+        ipaddr: 10.1.2.27
         netmask: 255.255.252.0
       - ifname: eth3
         bind_to: br-storage
-        ipaddr: 10.2.0.56
+        ipaddr: 10.2.2.27
         netmask: 255.255.252.0
+
+#
+# Storage Backends ( shared for all clouds )
+#
 
     - name: nfs-server
       ramsize: 2048
