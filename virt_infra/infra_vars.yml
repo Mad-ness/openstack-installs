@@ -438,6 +438,11 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.59
         netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-container
+        ipaddr: 10.4.0.59
+        netmask: 255.255.252.0
+
 
     - name: ceph-mon2
       ramsize: 2048
@@ -456,6 +461,11 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.60
         netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-container
+        ipaddr: 10.4.0.60
+        netmask: 255.255.252.0
+
 
     - name: ceph-mon3
       ramsize: 2048
@@ -474,6 +484,11 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.61
         netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-container
+        ipaddr: 10.4.0.61
+        netmask: 255.255.252.0
+
 
     - name: ceph-osd1
       ramsize: 3072
