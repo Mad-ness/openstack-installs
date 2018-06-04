@@ -13,7 +13,7 @@ used_ips:
    - "10.1.0.0,10.2.0.100"
    - "10.3.0.0,10.3.0.100"
    - "10.4.0.0,10.4.0.100"
-   - "172.28.1.0,172.28.1.48"
+   - "172.28.1.0,172.28.1.100"
    - "172.28.0.0,172.28.0.255"
    - "172.28.2.0,172.28.2.255"
    - "172.28.3.0,172.28.3.255"
@@ -21,8 +21,8 @@ used_ips:
 external_lb_vip_address: openstack.example.com
 
 global_overrides:
-    internal_lb_vip_address: 172.28.1.49
-    external_lb_vip_address: 172.28.1.49
+    internal_lb_vip_address: 172.28.2.21
+    external_lb_vip_address: 10.1.2.21
     management_bridge: br-mgmt
     tunnel_bridge: br-tenants
     provider_networks:
