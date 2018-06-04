@@ -61,11 +61,11 @@ global_overrides:
 
 shared-infra_hosts: &infrastructure_hosts
   infra1:
-    ip: 172.28.1.51
+    ip: 172.28.2.22
   infra2:
-    ip: 172.28.1.52
+    ip: 172.28.2.23
   infra3:
-    ip: 172.28.1.53
+    ip: 172.28.2.24
 
 repo-infra_hosts: *infrastructure_hosts
 
@@ -80,7 +80,7 @@ identity_hosts: *infrastructure_hosts
 storage-infra_hosts: *infrastructure_hosts
 image_hosts:
   infra1:
-    ip: 172.28.1.51
+    ip: 172.28.2.22
     container_vars:
       limit_container_types: glance
       glance_nfs_client:
@@ -90,7 +90,7 @@ image_hosts:
           type: "nfs"
           options: "_netdev,auto"
   infra2:
-    ip: 172.28.1.52
+    ip: 172.28.2.23
     container_vars:
       limit_container_types: glance
       glance_nfs_client:
@@ -100,7 +100,7 @@ image_hosts:
           type: "nfs"
           options: "_netdev,auto"
   infra3:
-    ip: 172.28.1.53
+    ip: 172.28.2.24
     container_vars:
       limit_container_types: glance
       glance_nfs_client:
@@ -111,11 +111,11 @@ image_hosts:
           options: "_netdev,auto"
 compute-infra_hosts: &compute_hosts
   compute1:
-    ip: 172.28.1.54
+    ip: 172.28.2.25
   compute2:
-    ip: 172.28.1.55
+    ip: 172.28.2.26
   compute3:
-    ip: 172.28.1.56
+    ip: 172.28.2.27
 orchestration_hosts: *infrastructure_hosts
 dashboard_hosts: *infrastructure_hosts
 network_hosts: *infrastructure_hosts
@@ -143,7 +143,7 @@ ceph-osd_hosts:
 
 storage_hosts:
   infra1:
-    ip: 172.28.1.51
+    ip: 172.28.2.22
     container_vars:
       cinder_backends:
         limit_container_types: cinder_volume
@@ -156,7 +156,7 @@ storage_hosts:
             - ip: "172.28.1.57"
               share: "/vol/cinder"
   infra2:
-    ip: 172.28.1.52
+    ip: 172.28.2.23
     container_vars:
       cinder_backends:
         limit_container_types: cinder_volume
@@ -169,7 +169,7 @@ storage_hosts:
             - ip: "172.28.1.57"
               share: "/vol/cinder"
   infra3:
-    ip: 172.28.1.53
+    ip: 172.28.2.24
     container_vars:
       cinder_backends:
         limit_container_types: cinder_volume
