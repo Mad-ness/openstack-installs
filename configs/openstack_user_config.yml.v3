@@ -23,8 +23,8 @@ used_ips:
 external_lb_vip_address: openstack.example.com
 
 global_overrides:
-    internal_lb_vip_address: 172.28.2.21
-    external_lb_vip_address: 10.4.2.21
+    internal_lb_vip_address: 10.4.2.21
+    external_lb_vip_address: 172.28.2.21
     management_bridge: br-container
     tunnel_bridge: br-tenants
     provider_networks:

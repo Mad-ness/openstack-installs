@@ -42,7 +42,7 @@ glance_rbd_store_chunk_size: 8
 nova_libvirt_images_rbd_pool: ephemeral-vms
 
 # If you wish to change the dhcp_domain configured for both nova and neutron
-# dhcp_domain: openstacklocal
+dhcp_domain: oslocal
 
 ## Common Glance Overrides when using a Swift back-end
 # By default when 'glance_default_store' is set to 'swift' the playbooks will

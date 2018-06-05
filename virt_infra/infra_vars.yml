@@ -573,3 +573,145 @@ infra_servers:
         bind_to: br-dataceph
         ipaddr: 10.4.0.72
         netmask: 255.255.252.0
+
+#
+# CEPH Cluster #2
+#
+    - name: 1-ceph-mon1
+      ramsize: 2048
+      ncpu: 2
+      hostname: 1-ceph-mon1
+      disks:
+      - name: 1-ceph-mon1.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-container
+        ipaddr: 10.4.0.62
+        netmask: 255.255.252.0
+        gateway: 10.4.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.62
+        netmask: 255.255.252.0
+
+    - name: 1-ceph-mon2
+      ramsize: 2048
+      ncpu: 2
+      hostname: 1-ceph-mon2
+      disks:
+      - name: 1-ceph-mon2.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-container
+        ipaddr: 10.4.0.63
+        netmask: 255.255.252.0
+        gateway: 10.4.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.63
+        netmask: 255.255.252.0
+
+    - name: 1-ceph-mon3
+      ramsize: 2048
+      ncpu: 2
+      hostname: 1-ceph-mon3
+      disks:
+      - name: 1-ceph-mon3.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-container
+        ipaddr: 10.4.0.64
+        netmask: 255.255.252.0
+        gateway: 10.4.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.64
+        netmask: 255.255.252.0
+
+    - name: 1-ceph-osd1
+      ramsize: 3072
+      ncpu: 2
+      hostname: 1-ceph-osd1
+      disks:
+      - name: 1-ceph-osd1-1.qcow2
+        size: 10
+      - name: 1-ceph-osd1-2.qcow2
+        size: 10
+      - name: 1-ceph-osd1-3.qcow2
+        size: 10
+      - name: 1-ceph-osd1-4.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-container
+        ipaddr:  10.4.0.80
+        netmask: 255.255.252.0
+        gateway: 10.4.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.80
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-dataceph
+        ipaddr: 10.4.0.80
+        netmask: 255.255.252.0
+
+    - name: 1-ceph-osd2
+      ramsize: 3072
+      ncpu: 2
+      hostname: 1-ceph-osd2
+      disks:
+      - name: 1-ceph-osd2-1.qcow2
+        size: 10
+      - name: 1-ceph-osd2-2.qcow2
+        size: 10
+      - name: 1-ceph-osd2-3.qcow2
+        size: 10
+      - name: 1-ceph-osd2-4.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-container
+        ipaddr:  10.4.0.81
+        netmask: 255.255.252.0
+        gateway: 10.4.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.81
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-dataceph
+        ipaddr: 10.4.0.81
+        netmask: 255.255.252.0
+
+    - name: 1-ceph-osd3
+      ramsize: 3072
+      ncpu: 2
+      hostname: 1-ceph-osd3
+      disks:
+      - name: 1-ceph-osd3-1.qcow2
+        size: 10
+      - name: 1-ceph-osd3-2.qcow2
+        size: 10
+      - name: 1-ceph-osd3-3.qcow2
+        size: 10
+      - name: 1-ceph-osd3-4.qcow2
+        size: 10
+      networks:
+      - ifname: eth0
+        bind_to: br-container
+        ipaddr:  10.4.0.82
+        netmask: 255.255.252.0
+        gateway: 10.4.0.1
+      - ifname: eth1
+        bind_to: br-storage
+        ipaddr: 10.2.0.82
+        netmask: 255.255.252.0
+      - ifname: eth2
+        bind_to: br-dataceph
+        ipaddr: 10.4.0.82
+        netmask: 255.255.252.0
+

@@ -3,7 +3,6 @@ apply_security_hardening: false
 
 cidr_networks:
    management: 172.28.0.0/22
-#   container: 172.28.0.0/22
    tunnel: 10.1.0.0/22
    storage: 10.2.0.0/22
    dataceph: 10.3.0.0/22
@@ -23,8 +22,8 @@ used_ips:
 external_lb_vip_address: openstack.example.com
 
 global_overrides:
-    internal_lb_vip_address: 172.28.2.21
-    external_lb_vip_address: 10.4.2.21
+    internal_lb_vip_address: 10.4.2.21
+    external_lb_vip_address: 172.28.2.21
     management_bridge: br-mgmt
     tunnel_bridge: br-tenants
     provider_networks:
