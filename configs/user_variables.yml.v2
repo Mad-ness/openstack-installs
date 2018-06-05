@@ -33,13 +33,13 @@ debug: true
 # glance_default_store: file
 
 ## Ceph pool name for Glance to use
-# glance_rbd_store_pool: images
-# glance_rbd_store_chunk_size: 8
+glance_rbd_store_pool: images
+glance_rbd_store_chunk_size: 8
 
 ## Common Nova Overrides
 # When nova_libvirt_images_rbd_pool is defined, ceph will be installed on nova
 # hosts.
-# nova_libvirt_images_rbd_pool: vms
+nova_libvirt_images_rbd_pool: ephemeral-vms
 
 # If you wish to change the dhcp_domain configured for both nova and neutron
 # dhcp_domain: openstacklocal
@@ -84,6 +84,18 @@ debug: true
 #  auth_cluster_required = cephx
 #  auth_service_required = cephx
 
+ceph_mons:
+ - 172.28.1.59
+ - 172.28.1.60
+ - 172.28.1.61
+
+ceph_conf_file: |
+  [global]
+  fsid = f64dea3a-1e36-4324-8b0c-a4c7e17c297b
+  mon initial members = ceph-mon1,ceph-mon2,ceph-mon3
+  mon host = 10.2.0.59,10.2.0.60,10.2.0.61
+  public network = 10.2.0.0/22
+  cluster network = 10.4.0.0/22
 
 # By default, openstack-ansible configures all OpenStack services to talk to
 # RabbitMQ over encrypted connections on port 5671. To opt-out of this default,
@@ -185,22 +197,24 @@ repo_build_upper_constraints_overrides:
 # from here https://bugs.launchpad.net/networking-midonet/+bug/1730314
   - "libvirt_python==3.9.0"
 
-fsid: f64dea3a-1e36-4324-8b0c-a4c7e17c297b
-
-monitor_address_block: "{{ cidr_networks.container }}"
-public_network: "{{ cidr_networks.container }}"
-cluster_network: "{{ cidr_networks.dataceph }}"
-
-osd_scenario: collocated
-journal_size: 10240 # size in MB
-ceph_stable_release: jewel
-
+#fsid: f64dea3a-1e36-4324-8b0c-a4c7e17c297b
+#
+#monitor_address_block: "10.2.0.0/22"
+#monitor_interface: "br-storage"
+#monitor_address_block: "{{ cidr_networks.container }}"
+#public_network: "{{ cidr_networks.container }}"
+#cluster_network: "{{ cidr_networks.dataceph }}"
+#
+#osd_scenario: collocated
+#journal_size: 10240 # size in MB
+#ceph_stable_release: jewel
+#
 openstack_config: true
 cinder_ceph_client: cinder
 glance_ceph_client: glance
 glance_default_store: rbd
 glance_rbd_store_pool: images
-nova_libvirt_images_rbd_pool: vms
+nova_libvirt_images_rbd_pool: ephemeral-vms
 
 cinder_backends:
   RBD:
@@ -212,6 +226,4 @@ cinder_backends:
     rbd_user: "{{ cinder_ceph_client }}"
     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
     report_discard_supported: true
-
-
 
