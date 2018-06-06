@@ -226,3 +226,6 @@ cinder_backends:
     rbd_user: "{{ cinder_ceph_client }}"
     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
     report_discard_supported: true
+
+nova_console_type: novnc
+
