@@ -211,7 +211,7 @@ infra_servers:
       ncpu: 8
       disks:
         - name: 1-controller-1.qcow2
-          size: 30
+          size: 35
       networks:
       - ifname: eth0
         bind_to: br-mgmt
@@ -237,7 +237,7 @@ infra_servers:
       ncpu: 8
       disks:
         - name: 1-controller-2.qcow2
-          size: 30
+          size: 35
       networks:
       - ifname: eth0
         bind_to: br-mgmt
@@ -264,7 +264,7 @@ infra_servers:
       ncpu: 8
       disks:
         - name: 1-controller-3.qcow2
-          size: 30
+          size: 35
       networks:
       - ifname: eth0
         bind_to: br-mgmt
