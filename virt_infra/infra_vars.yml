@@ -183,7 +183,7 @@ infra_servers:
         bind_to: br-storage
         ipaddr: 10.2.0.56
         netmask: 255.255.252.0
-# 
+#
 # Cloud #2
 #
     - name: 1-openstack-ansible
@@ -226,6 +226,7 @@ infra_servers:
         bind_to: br-tenants
         ipaddr: 10.1.2.22
         netmask: 255.255.252.0
+        l2_net: true
       - ifname: eth3
         bind_to: br-storage
         ipaddr: 10.2.2.22
@@ -252,6 +253,7 @@ infra_servers:
         bind_to: br-tenants
         ipaddr: 10.1.2.23
         netmask: 255.255.252.0
+        l2_net: true
       - ifname: eth3
         bind_to: br-storage
         ipaddr: 10.2.2.23
@@ -279,6 +281,7 @@ infra_servers:
         bind_to: br-tenants
         ipaddr: 10.1.2.24
         netmask: 255.255.252.0
+        l2_net: true
       - ifname: eth3
         bind_to: br-storage
         ipaddr: 10.2.2.24
@@ -310,6 +313,7 @@ infra_servers:
         bind_to: br-tenants
         ipaddr: 10.1.2.25
         netmask: 255.255.252.0
+        l2_net: true
       - ifname: eth3
         bind_to: br-storage
         ipaddr: 10.2.2.25
@@ -338,6 +342,7 @@ infra_servers:
         bind_to: br-tenants
         ipaddr: 10.1.2.26
         netmask: 255.255.252.0
+        l2_net: true
       - ifname: eth3
         bind_to: br-storage
         ipaddr: 10.2.2.26
@@ -366,6 +371,7 @@ infra_servers:
         bind_to: br-tenants
         ipaddr: 10.1.2.27
         netmask: 255.255.252.0
+        l2_net: true
       - ifname: eth3
         bind_to: br-storage
         ipaddr: 10.2.2.27
@@ -714,4 +720,3 @@ infra_servers:
         bind_to: br-dataceph
         ipaddr: 10.4.0.82
         netmask: 255.255.252.0
-

@@ -84,10 +84,10 @@ dhcp_domain: oslocal
 #  auth_cluster_required = cephx
 #  auth_service_required = cephx
 
-ceph_mons:
- - 172.28.1.59
- - 172.28.1.60
- - 172.28.1.61
+#ceph_mons:
+# - 172.28.1.59
+# - 172.28.1.60
+# - 172.28.1.61
 
 ceph_conf_file: |
   [global]
@@ -186,7 +186,7 @@ haproxy_keepalived_internal_interface: br-container
 # To use another file to feed the role, override the following var:
 # haproxy_keepalived_vars_file: 'vars/configs/keepalived_haproxy.yml'
 
-repo_build_git_cache: true
+#repo_build_git_cache: true
 galera_cluster_name: openstack_galera_cluster
 galera_root_password: secrete
 apply_security_hardening: false
@@ -212,7 +212,7 @@ repo_build_upper_constraints_overrides:
 openstack_config: true
 cinder_ceph_client: cinder
 glance_ceph_client: glance
-glance_default_store: rbd
+glance_default_store: images
 glance_rbd_store_pool: images
 nova_libvirt_images_rbd_pool: ephemeral-vms
 
@@ -226,4 +226,3 @@ cinder_backends:
     rbd_user: "{{ cinder_ceph_client }}"
     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
     report_discard_supported: true
-
