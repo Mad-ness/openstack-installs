@@ -37,7 +37,7 @@
         DEVICE={{ item.bind_to }}
         NAME={{ item.bind_to }}
         ONBOOT=yes
-        {% if item.ipaddr is defined %}
+        {% if item.ipaddr is defined and not item.l2_net|default(false) %}
         IPADDR={{ item.ipaddr }}
         NETMASK={{ item.netmask }}
         {% endif %}
