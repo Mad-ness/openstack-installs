@@ -31,7 +31,7 @@ start_vms() {
 }
 
 bootstrap_vms() {
-	ansible-playbooks playbooks/{bootstrap_controllers.yml,network_cfg.yml} -e hosts=$A_VMS
+	ansible-playbook playbooks/{bootstrap_controllers.yml,network_cfg.yml} -e hosts=$A_VMS
 	ansible -b -m command -a 'reboot' $A_VMS
 	ansible -m ping $A_VMS
 	while [ $? -ne 0 ]; do
