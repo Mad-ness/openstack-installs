@@ -83,8 +83,8 @@ log_hosts:
     ip: 172.28.1.50
 
 identity_hosts: *infrastructure_hosts
-
 storage-infra_hosts: *infrastructure_hosts
+
 image_hosts:
   infra1:
     ip: 172.28.2.22
