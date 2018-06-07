@@ -155,17 +155,25 @@ metering-compute_hosts: *compute_hosts
 cinder_backends_default_config: &cinder_backends_default_config
 # in which containers should be deployed this service (cinder-volume)
   limit_container_types: cinder_volume
-  RBD:
+  ceph:
 # Probably it applies only on LVM backends
 #    volume_group: cinder_volume
     volume_driver: cinder.volume.drivers.rbd.RBDDriver
     rbd_pool: volumes
     rbd_ceph_conf: /etc/ceph/ceph.conf
     rbd_store_chunk_size: 8
-    volume_backend_name: rbd
+    volume_backend_name: ceph
     rbd_user: "{{ cinder_ceph_client }}"
     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
     report_discard_supported: true
+#        nfs_volume:
+#          volume_backend_name: NFS_VOLUME1
+#          volume_driver: cinder.volume.drivers.nfs.NfsDriver
+#          nfs_mount_options: "rsize=65535,wsize=65535,timeo=1200,actimeo=120"
+#          nfs_shares_config: /etc/cinder/nfs_shares
+#          shares:1
+#            - ip: "172.28.1.57"
+#              share: "/vol/cinder"
 
 
 storage_hosts:
@@ -175,25 +183,6 @@ storage_hosts:
       cinder_storage_availability_zone: Rack1
       cinder_default_availability_zone: Rack1
       cinder_backends: *cinder_backends_default_config
-#        limit_container_types: cinder_volume
-#        rbd:
-# this options is needed to be specified in the limit_container_types list
-# to enable this backend for deployment
-#          volume_group: cinder_volume
-#          volume_driver: cinder.volume.drivers.rbd.RBDDriver
-#          volume_backend_name: rbd
-#          rbd_pool: cinder-volumes
-#          rbd_ceph_conf: /etc/ceph/ceph.conf
-#          rbd_user: "{{ cinder_ceph_client }}"
-#          rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
-#        nfs_volume:
-#          volume_backend_name: NFS_VOLUME1
-#          volume_driver: cinder.volume.drivers.nfs.NfsDriver
-#          nfs_mount_options: "rsize=65535,wsize=65535,timeo=1200,actimeo=120"
-#          nfs_shares_config: /etc/cinder/nfs_shares
-#          shares:
-#            - ip: "172.28.1.57"
-#              share: "/vol/cinder"
   infra2:
     ip: 172.28.2.23
     container_vars:
