@@ -209,6 +209,7 @@ repo_build_upper_constraints_overrides:
 #journal_size: 10240 # size in MB
 #ceph_stable_release: jewel
 #
+
 openstack_config: true
 cinder_ceph_client: cinder
 glance_ceph_client: glance
@@ -216,16 +217,15 @@ glance_default_store: rbd
 glance_rbd_store_pool: images
 nova_libvirt_images_rbd_pool: ephemeral-vms
 
-cinder_backends:
-  RBD:
-    volume_driver: cinder.volume.drivers.rbd.RBDDriver
-    rbd_pool: volumes
-    rbd_ceph_conf: /etc/ceph/ceph.conf
-    rbd_store_chunk_size: 8
-    volume_backend_name: rbddriver
-    rbd_user: "{{ cinder_ceph_client }}"
-    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
-    report_discard_supported: true
+#cinder_backends:
+#  RBD:
+#    volume_driver: cinder.volume.drivers.rbd.RBDDriver
+#    rbd_pool: volumes
+#    rbd_ceph_conf: /etc/ceph/ceph.conf
+#    rbd_store_chunk_size: 8
+#    volume_backend_name: rbd
+#    rbd_user: "{{ cinder_ceph_client }}"
+#    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+#    report_discard_supported: true
 
 nova_console_type: novnc
-
