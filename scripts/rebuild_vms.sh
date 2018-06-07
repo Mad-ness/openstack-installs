@@ -25,7 +25,7 @@ start_vms() {
 
 	ansible -m ping $A_VMS
 	while [ $? -ne 0 ]; do
-		sleep 15
+		sleep 20
 		ansible -m ping $A_VMS
 	done
 }
@@ -35,7 +35,7 @@ bootstrap_vms() {
 	ansible -b -m command -a 'reboot' $A_VMS
 	ansible -m ping $A_VMS
 	while [ $? -ne 0 ]; do
-		sleep 15
+		sleep 20
 		ansible -m ping $A_VMS
 	done
 	echo "----------------------------------------------------"
