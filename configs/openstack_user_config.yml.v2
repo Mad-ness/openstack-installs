@@ -43,12 +43,12 @@ global_overrides:
         is_container_address: true
         is_ssh_address: true
     - network:
-# this network is run on metal hosts (not in containers)
+# this network is run on metal controller hosts (not in containers)
 # so it should point at a physical interface there
         container_bridge: "br-tenants"
         container_type: "veth"
-        container_interface: "eth12"
-        host_bind_override: "eth12"
+        container_interface: "br-tenants"
+        host_bind_override: "br-tenants"
         type: "vlan"
         net_name: "tenants"
         range: "50:200"
