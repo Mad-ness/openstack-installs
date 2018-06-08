@@ -176,7 +176,7 @@ cinder_backends_default_config: &cinder_backends_default_config
 #              share: "/vol/cinder"
 
 
-storage_hosts:
+storage_hosts_dontuseit:
   infra1:
     ip: 172.28.2.22
     container_vars:

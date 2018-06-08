@@ -39,7 +39,6 @@ glance_rbd_store_chunk_size: 8
 ## Common Nova Overrides
 # When nova_libvirt_images_rbd_pool is defined, ceph will be installed on nova
 # hosts.
-nova_libvirt_images_rbd_pool: ephemeral-vms
 
 # If you wish to change the dhcp_domain configured for both nova and neutron
 dhcp_domain: oslocal
@@ -90,7 +89,7 @@ dhcp_domain: oslocal
 # - 172.28.1.61
 
 # Original option name is ceph_conf_file
-ceph_conf_file_doesnot_work_for_existing_clusters: |
+ceph_conf_file: |
   [global]
   fsid = f64dea3a-1e36-4324-8b0c-a4c7e17c297b
   mon initial members = ceph-mon1,ceph-mon2,ceph-mon3
@@ -98,7 +97,7 @@ ceph_conf_file_doesnot_work_for_existing_clusters: |
   public network = 10.2.0.0/22
   cluster network = 10.4.0.0/22
 
-ceph_extra_confs:
+ceph_extra_confs_dontuseit:
     - src: /etc/openstack_deploy/ceph.conf
       dest: /etc/ceph/conf.conf
       mon_host: 172.28.1.59
@@ -219,13 +218,13 @@ repo_build_upper_constraints_overrides:
 #journal_size: 10240 # size in MB
 #ceph_stable_release: jewel
 #
-
+generate_fsid: true
 openstack_config: true
 cinder_ceph_client: cinder
 glance_ceph_client: glance
 glance_default_store: rbd
 glance_rbd_store_pool: images
-nova_libvirt_images_rbd_pool: ephemeral-vms
+nova_libvirt_images_rbd_pool: vms
 
 #cinder_backends:
 #  RBD:
@@ -239,3 +238,18 @@ nova_libvirt_images_rbd_pool: ephemeral-vms
 #    report_discard_supported: true
 
 nova_console_type: novnc
+
+cinder_backends:
+# in which containers should be deployed this service (cinder-volume)
+  limit_container_types: cinder_volume
+  RBD:
+# Probably it applies only on LVM backends
+#    volume_group: cinder_volume
+    volume_driver: cinder.volume.drivers.rbd.RBDDriver
+    rbd_pool: volumes
+    rbd_ceph_conf: /etc/ceph/ceph.conf
+    rbd_store_chunk_size: 8
+    volume_backend_name: rbddriver
+    rbd_user: "{{ cinder_ceph_client }}"
+    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+    report_discard_supported: true
