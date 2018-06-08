@@ -10,7 +10,8 @@ fi
 dest_host=1-openstack-ansible
 dest_dir="/etc/openstack_deploy"
 mandatory_files="openstack_user_config.yml user_variables.yml"
-optional_files="ceph.conf ceph.client.cinder.keyring ceph.client.glance.keyring"
+# optional_files="ceph.conf ceph.client.cinder.keyring ceph.client.glance.keyring"
+optional_files="ceph.keyring"
 
 pushd ../configs
 
