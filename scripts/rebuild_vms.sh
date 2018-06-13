@@ -69,10 +69,18 @@ bootstrap_vms() {
 	echo "===================================================="
 }
 
+clear_facts_on_build_machine() {
+    cat << EOF | ssh 1-openstack-ansible
+cd /etc/openstack_deploy/ansible_facts/ && rm -f ./*
+sed -i -e '/^10.4.*/d' /etc/hosts
+EOF
+}
+
 pushd $scripts_root
 destroy_vms
 deploy_vms
 start_vms
 bootstrap_vms
+clear_facts_on_build_machine
 popd
 
