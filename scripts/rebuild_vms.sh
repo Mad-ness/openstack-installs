@@ -15,6 +15,24 @@ deploy_vms() {
 	for h in $VMS; do
 		python infra_getcmds.py $h | sh
 	done
+	sleep 900
+    for vm in $VMS; do
+        while true; do
+            status=$(virsh list --all --state-running | awk '/'$vm'/{ print $3 }')
+            if [[ "$status" = "running" ]]; then
+                sleep 10
+                echo -n '.'
+                continue
+            elif [[ "$status" = "shutdown" ]]; then
+                virsh start $vm
+                break
+            else
+                echo ">>>> VM: $vm in unknown state. Skipping <<<< "
+                break
+            fi
+        done
+    done
+
 }
 
 
