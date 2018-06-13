@@ -15,7 +15,14 @@ deploy_vms() {
 	for h in $VMS; do
 		python infra_getcmds.py $h | sh
 	done
-	sleep 900
+
+	echo -n 'Wait for VMs are up and running '
+    for t in {1..90}; do
+        echo -n '.'
+		sleep 10
+	done
+	echo ''
+
     for vm in $VMS; do
         while true; do
             status=$(virsh list --all --state-running | awk '/'$vm'/{ print $3 }')
@@ -32,6 +39,7 @@ deploy_vms() {
             fi
         done
     done
+	echo ''
 
 }
 
