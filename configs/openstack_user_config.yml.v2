@@ -157,7 +157,7 @@ cinder_backends_default_config: &cinder_backends_default_config
   limit_container_types: cinder_volume
   ceph:
 # Probably it applies only on LVM backends
-#    volume_group: cinder_volume
+    volume_group: cinder-volume
     volume_driver: cinder.volume.drivers.rbd.RBDDriver
     rbd_pool: volumes
     rbd_ceph_conf: /etc/ceph/ceph.conf
@@ -176,7 +176,7 @@ cinder_backends_default_config: &cinder_backends_default_config
 #              share: "/vol/cinder"
 
 
-storage_hosts_dontuseit:
+storage_hosts:
   infra1:
     ip: 172.28.2.22
     container_vars:
