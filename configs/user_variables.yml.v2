@@ -239,17 +239,16 @@ nova_libvirt_images_rbd_pool: vms
 
 nova_console_type: novnc
 
-cinder_backends:
-# in which containers should be deployed this service (cinder-volume)
-  limit_container_types: cinder_volume
-  RBD:
-# Probably it applies only on LVM backends
-#    volume_group: cinder_volume
-    volume_driver: cinder.volume.drivers.rbd.RBDDriver
-    rbd_pool: volumes
-    rbd_ceph_conf: /etc/ceph/ceph.conf
-    rbd_store_chunk_size: 8
-    volume_backend_name: rbddriver
-    rbd_user: "{{ cinder_ceph_client }}"
-    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
-    report_discard_supported: true
+# cinder_backends:
+# # in which containers should be deployed this service (cinder-volume)
+#   RBD:
+# # Probably it applies only on LVM backends
+# #    volume_group: cinder_volume
+#     volume_driver: cinder.volume.drivers.rbd.RBDDriver
+#     rbd_pool: volumes
+#     rbd_ceph_conf: /etc/ceph/ceph.conf
+#     rbd_store_chunk_size: 8
+#     volume_backend_name: rbddriver
+#     rbd_user: "{{ cinder_ceph_client }}"
+#     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+#     report_discard_supported: true

@@ -152,7 +152,7 @@ metering-compute_hosts: *compute_hosts
 #     ip: 172.28.1.72
 
 
-cinder_backends: &cinder_backends_default_config
+cinder_backends_default: &cinder_backends_default_config
   ceph:
     volume_group: cinder-volume
     volume_driver: cinder.volume.drivers.rbd.RBDDriver
