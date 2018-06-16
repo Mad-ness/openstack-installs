@@ -152,11 +152,8 @@ metering-compute_hosts: *compute_hosts
 #     ip: 172.28.1.72
 
 
-cinder_backends_default_config: &cinder_backends_default_config
-# in which containers should be deployed this service (cinder-volume)
-  limit_container_types: cinder_volume
+cinder_backends: &cinder_backends_default_config
   ceph:
-# Probably it applies only on LVM backends
     volume_group: cinder-volume
     volume_driver: cinder.volume.drivers.rbd.RBDDriver
     rbd_pool: volumes
@@ -166,20 +163,13 @@ cinder_backends_default_config: &cinder_backends_default_config
     rbd_user: "{{ cinder_ceph_client }}"
     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
     report_discard_supported: true
-#        nfs_volume:
-#          volume_backend_name: NFS_VOLUME1
-#          volume_driver: cinder.volume.drivers.nfs.NfsDriver
-#          nfs_mount_options: "rsize=65535,wsize=65535,timeo=1200,actimeo=120"
-#          nfs_shares_config: /etc/cinder/nfs_shares
-#          shares:1
-#            - ip: "172.28.1.57"
-#              share: "/vol/cinder"
 
 
 storage_hosts:
   infra1:
     ip: 172.28.2.22
     container_vars:
+      limit_container_types: cinder_volume
       cinder_storage_availability_zone: Rack1
       cinder_default_availability_zone: Rack1
       cinder_backends: *cinder_backends_default_config
