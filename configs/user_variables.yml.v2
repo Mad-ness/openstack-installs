@@ -69,6 +69,11 @@ dhcp_domain: oslocal
 #   - 10.16.5.41
 #   - 10.16.5.42
 
+ceph_mons:
+  - 172.28.1.59
+  - 172.28.1.60
+  - 172.28.1.61
+
 ## Custom Ceph Configuration File (ceph.conf)
 # By default, your deployment host will connect to one of the mons defined above to
 # obtain a copy of your cluster's ceph.conf.  If you prefer, uncomment ceph_conf_file
