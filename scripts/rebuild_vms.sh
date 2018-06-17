@@ -73,14 +73,19 @@ clear_facts_on_build_machine() {
     cat << EOF | ssh 1-openstack-ansible
 cd /etc/openstack_deploy/ansible_facts/ && rm -f ./*
 sed -i -e '/^10.4.*/d' /etc/hosts
+for h in `lxc-ls`; do
+    lxc-stop -n $h; lxc-destroy -n $h;
+done
+rm -rf /etc/openstack_deploy/{openstack_hostnames_ips.yml,openstack_inventory.json}
+cd /opt/openstack-ansible && python inventory/dynamic_inventory.py && echo " **** Inventory is ready ****"
 EOF
 }
 
 pushd $scripts_root
 destroy_vms
+clear_facts_on_build_machine
 deploy_vms
 start_vms
 bootstrap_vms
-clear_facts_on_build_machine
 popd
 

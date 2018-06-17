@@ -19,7 +19,7 @@
 ###
 
 ## Debug and Verbose options.
-debug: true
+debug: false
 
 ## Common Glance Overrides
 # Set glance_default_store to "swift" if using Cloud Files backend
@@ -39,10 +39,9 @@ glance_rbd_store_chunk_size: 8
 ## Common Nova Overrides
 # When nova_libvirt_images_rbd_pool is defined, ceph will be installed on nova
 # hosts.
-nova_libvirt_images_rbd_pool: ephemeral-vms
 
 # If you wish to change the dhcp_domain configured for both nova and neutron
-# dhcp_domain: openstacklocal
+dhcp_domain: oslocal
 
 ## Common Glance Overrides when using a Swift back-end
 # By default when 'glance_default_store' is set to 'swift' the playbooks will
@@ -70,6 +69,11 @@ nova_libvirt_images_rbd_pool: ephemeral-vms
 #   - 10.16.5.41
 #   - 10.16.5.42
 
+ceph_mons:
+  - 172.28.1.59
+  - 172.28.1.60
+  - 172.28.1.61
+
 ## Custom Ceph Configuration File (ceph.conf)
 # By default, your deployment host will connect to one of the mons defined above to
 # obtain a copy of your cluster's ceph.conf.  If you prefer, uncomment ceph_conf_file
@@ -84,11 +88,12 @@ nova_libvirt_images_rbd_pool: ephemeral-vms
 #  auth_cluster_required = cephx
 #  auth_service_required = cephx
 
-ceph_mons:
- - 10.4.0.59
- - 10.4.0.60
- - 10.4.0.61
+#ceph_mons:
+# - 172.28.1.59
+# - 172.28.1.60
+# - 172.28.1.61
 
+# Original option name is ceph_conf_file
 ceph_conf_file: |
   [global]
   fsid = f64dea3a-1e36-4324-8b0c-a4c7e17c297b
@@ -96,6 +101,15 @@ ceph_conf_file: |
   mon host = 10.2.0.59,10.2.0.60,10.2.0.61
   public network = 10.2.0.0/22
   cluster network = 10.4.0.0/22
+
+ceph_extra_confs_dontuseit:
+    - src: /etc/openstack_deploy/ceph.conf
+      dest: /etc/ceph/conf.conf
+      mon_host: 172.28.1.59
+      client_name: "{{ cinder_ceph_client }}"
+      keyring_src: /etc/openstack_deploy/ceph.keyring
+      keyring_dest: /etc/ceph/ceph.keyring
+      secret_uuid: "{{ cinder_ceph_client_uuid }}"
 
 # By default, openstack-ansible configures all OpenStack services to talk to
 # RabbitMQ over encrypted connections on port 5671. To opt-out of this default,
@@ -186,7 +200,7 @@ haproxy_keepalived_internal_interface: br-container
 # To use another file to feed the role, override the following var:
 # haproxy_keepalived_vars_file: 'vars/configs/keepalived_haproxy.yml'
 
-repo_build_git_cache: true
+#repo_build_git_cache: true
 galera_cluster_name: openstack_galera_cluster
 galera_root_password: secrete
 apply_security_hardening: false
@@ -209,23 +223,37 @@ repo_build_upper_constraints_overrides:
 #journal_size: 10240 # size in MB
 #ceph_stable_release: jewel
 #
+generate_fsid: true
 openstack_config: true
 cinder_ceph_client: cinder
 glance_ceph_client: glance
 glance_default_store: rbd
 glance_rbd_store_pool: images
-nova_libvirt_images_rbd_pool: ephemeral-vms
+nova_libvirt_images_rbd_pool: vms
 
-cinder_backends:
-  RBD:
-    volume_driver: cinder.volume.drivers.rbd.RBDDriver
-    rbd_pool: volumes
-    rbd_ceph_conf: /etc/ceph/ceph.conf
-    rbd_store_chunk_size: 8
-    volume_backend_name: rbddriver
-    rbd_user: "{{ cinder_ceph_client }}"
-    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
-    report_discard_supported: true
+#cinder_backends:
+#  RBD:
+#    volume_driver: cinder.volume.drivers.rbd.RBDDriver
+#    rbd_pool: volumes
+#    rbd_ceph_conf: /etc/ceph/ceph.conf
+#    rbd_store_chunk_size: 8
+#    volume_backend_name: rbd
+#    rbd_user: "{{ cinder_ceph_client }}"
+#    rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+#    report_discard_supported: true
 
 nova_console_type: novnc
 
+# cinder_backends:
+# # in which containers should be deployed this service (cinder-volume)
+#   RBD:
+# # Probably it applies only on LVM backends
+# #    volume_group: cinder_volume
+#     volume_driver: cinder.volume.drivers.rbd.RBDDriver
+#     rbd_pool: volumes
+#     rbd_ceph_conf: /etc/ceph/ceph.conf
+#     rbd_store_chunk_size: 8
+#     volume_backend_name: rbddriver
+#     rbd_user: "{{ cinder_ceph_client }}"
+#     rbd_secret_uuid: "{{ cinder_ceph_client_uuid }}"
+#     report_discard_supported: true
